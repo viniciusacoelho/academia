@@ -41,11 +41,11 @@ def buscar_plano(nome: str):
         cursor.close()
         conexao.close()
 
-def atualizar_plano(atributo: str):
+def atualizar_plano(id_plano: int, parametro_atributo: str | float, atributo: str):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute(f"UPDATE {atributo} FROM planos")    
+        cursor.execute(f"UPDATE alunos SET {atributo} = %s FROM planos WHERE id_plano = %s", [parametro_atributo , id_plano])
         conexao.commit()
         print(f"{atributo} de plano atualizado com sucesso!")
     except Exception as e:

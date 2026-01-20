@@ -1,11 +1,10 @@
 from banco_de_dados.criar_conexao import criar_conexao
-from criptografia.criptografar import criptografar, checar_senha
 
-def cadastrar_treino(tipo: str, quantidade_exercicios: int, nome_exercicio: str, peso: float, repeticoes: int, tempo_descanco: str, series: int):
+def cadastrar_treino(tipo: str, nome_exercicio: str, peso: int, repeticoes: int, series: int, tempo_descanso: str, id_aluno: int, id_instrutor: int):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("INSERT INTO treinos (tipo, quantidade_exercicios, nome_exercicio, peso, repeticoes, series, tempo_descanso) VALUES (%s, %s, %s, %s, %s, %s, %s)", [tipo, quantidade_exercicios, nome_exercicio, peso, repeticoes, tempo_descanco, series])    
+        cursor.execute("INSERT INTO treinos (tipo, nome_exercicio, peso, repeticoes, series, tempo_descanso, id_aluno, id_instrutor) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", [tipo, nome_exercicio, peso, repeticoes, series, tempo_descanso, id_aluno, id_instrutor])    
         conexao.commit()
         print("Treino cadastrado com sucesso!")
     except Exception as e:
@@ -42,11 +41,11 @@ def buscar_treino(nome: str):
         cursor.close()
         conexao.close()
 
-def atualizar_treino(atributo: str):
+def atualizar_treino(id_treino, parametro_atributo: str | int, atributo: str):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute(f"UPDATE {atributo} FROM treinos")    
+        cursor.execute(f"UPDATE treinos SET {atributo} = %s WHERE id_treino = %s", [parametro_atributo, id_treino])    
         conexao.commit()
         print(f"{atributo} de treino atualizado com sucesso!")
     except Exception as e:
@@ -55,11 +54,11 @@ def atualizar_treino(atributo: str):
         cursor.close()
         conexao.close()
 
-def deletar_treino(id: int):
+def deletar_treino(id_treino: int):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute(f"DELETE FROM treinos WHERE id = %s", id)    
+        cursor.execute(f"DELETE FROM treinos WHERE id = %s", [id_treino])
         conexao.commit()
         # print(f"Treino {nome} deletado com sucesso!")
         print("Treino deletado com sucesso!")

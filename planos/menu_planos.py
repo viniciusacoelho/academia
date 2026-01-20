@@ -23,6 +23,7 @@ def menu_planos():
                 case 2:
                     planos = listar_planos()
                     print("Planos listados com sucesso!")
+                    
                     for plano in planos:
                         print(f"Plano {plano[0]}\nNome: {plano[1]}\nDescrição: {plano[2]}\nTipo: {plano[3]}\nPreço: {plano[4]}")
                 case 3:
@@ -31,18 +32,18 @@ def menu_planos():
 
                     planos = listar_planos()
                     for plano in planos:
-                        print(f"Plano {plano[0]}\nNome: {plano[1]}\nDescrição: {plano[2]}\nPreço: R$ {plano[3]}")
+                        print(f"Plano {plano[0]}\nNome: {plano[1]}\nDescrição: {plano[2]}\nTipo: {plano[3]}\nPreço: R$ {plano[4]}")
                 case 4:
                     atualizar_plano()
                 case 5:
                     listar_planos()
-                    id = int(input("Digite o ID do plano para deletar: "))
-                    deletar_plano(id)
+                    id_plano = int(input("Digite o ID do plano para deletar: "))
+                    deletar_plano(id_plano)
                 case 6:
                     print("Voltando...")
                     break
                 case _:
-                    print("Opção inválida!")
+                    print("Opção inválida! Tente novamente.")
         except ValueError:
             print("[ERRO]: Digite um número!")
 

@@ -48,11 +48,11 @@ def listar_alunos() -> list | None:
         cursor.close()
         conexao.close()
 
-def buscar_aluno(nome: str):
+def buscar_aluno(email: str):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT * FROM alunos WHERE nome = %s", [f"%{nome}%"])    
+        cursor.execute("SELECT * FROM alunos WHERE email = %s", [f"%{email}%"])
         conexao.commit()
         print("Aluno buscado com sucesso!")
         return cursor.fetchone()
@@ -62,24 +62,24 @@ def buscar_aluno(nome: str):
         cursor.close()
         conexao.close()
 
-def atualizar_aluno(atributo: str):
+def atualizar_aluno(id_aluno: int, atributo: str | float, parametro_atributo: str):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute(f"UPDATE {atributo} FROM alunos")    
+        cursor.execute(f"UPDATE alunos SET {atributo} = %s WHERE id_aluno = %s", [parametro_atributo, id_aluno])
         conexao.commit()
         print(f"{atributo} de aluno atualizado com sucesso!")
     except Exception as e:
-        print(f"[ERRO]: Falha ao atualizar aluno: {e}")
+        print(f"[ERRO]: Falha ao atualizar {atributo} de aluno: {e}")
     finally:
         cursor.close()
         conexao.close()
 
-def deletar_aluno(id: int):
+def deletar_aluno(id_aluno: int):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute(f"DELETE FROM alunos WHERE id = %s", id)    
+        cursor.execute(f"DELETE FROM alunos WHERE id_aluno = %s", [id_aluno])
         conexao.commit()
         # print(f"aluno {nome} deletado com sucesso!")
         print("Aluno deletado com sucesso!")

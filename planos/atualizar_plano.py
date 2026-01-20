@@ -1,8 +1,11 @@
-from planos.crud_planos import listar_planos, atualizar_plano
+from limpar_tela.limpar_tela import limpar_tela
+from planos.crud_planos import listar_planos
 
-def atualizar_plano():
+def atualizar_plano(id_plano: int):
+    limpar_tela()
+
     while True:
-        listar_planos()
+        listar_planos(id_plano)
 
         print("\n--------------------------------------------\n          Atualizar Plano\n--------------------------------------------")
         try:
@@ -23,9 +26,10 @@ def atualizar_plano():
             match opcao:
                 case 1:
                     nome = input("Digite o novo nome do plano: ")
-                    
+                    atualizar_plano(id_plano, nome, "nome")
                 case 3:
                     descricao = input("Digite a nova descrição do plano: ")
+                    atualizar_plano(id_plano, descricao, "descricao")
                 case 1:
                     menu = ["Mensal", "Semestral", "Anual"]
                     while True:
@@ -46,7 +50,7 @@ def atualizar_plano():
                                 case 4:
                                     pass
                                 case _:
-                                    print("Opção inválida!")
+                                    print("Opção inválida! Tente novamente.")
                             break
                         except Exception as e:
                             print("[ERRO]: Digite um número!")
@@ -58,15 +62,17 @@ def atualizar_plano():
                         tipo = "Semestral"
                     elif tipo == "3":
                         tipo = "Anual"
-                    tipo = input("Digite o novo tipo do plano: ")
+                    atualizar_plano(id_plano, tipo, "tipo")
+                    # tipo = input("Digite o novo tipo do plano: ")
                 case 1:
                     preco = float(input("Digite o novo preço do plano: "))
+                    atualizar_plano(id_plano, preco, "preco")
 
                 case 6:
                     print("Voltando...")
                     break
                 case _:
-                    print("Opção inválida!")
+                    print("Opção inválida! Tente novamente.")
 
         except ValueError:
             print("[ERRO]: Digite um número!")

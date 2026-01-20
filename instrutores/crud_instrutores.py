@@ -21,13 +21,14 @@ def autenticar_instrutor(email: str, senha: str):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
+        cursor.execute("SELECT * FROM instrutores WHERE email = %s;", [email])
+        instrutor = cursor.fetchone()
 
-        # if checar_senha(senha):
+        if instrutor and checar_senha(senha, bytes(instrutor[4])):
+            print("Instrutor autenticado com sucesso!")
+            return instrutor
+        return None
 
-
-        cursor.execute("SELECT FROM instrutores WHERE email = %s AND senha = %s", [email, senha])    
-        conexao.commit()
-        print("Instrutor autenticado com sucesso!")
     except Exception as e:
         print(f"[ERRO]: Falha ao autenticar instrutor: {e}")
     finally:
@@ -48,11 +49,11 @@ def listar_instrutores() -> list | None:
         cursor.close()
         conexao.close()
 
-def buscar_instrutor(nome: str):
+def buscar_instrutor(email: str):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT * FROM instrutores WHERE nome = %s", [f"%{nome}%"])    
+        cursor.execute("SELECT * FROM instrutores WHERE email = %s", [f"%{email}%"])    
         conexao.commit()
         print("Instrutor buscado com sucesso!")
         return cursor.fetchone()
@@ -62,11 +63,11 @@ def buscar_instrutor(nome: str):
         cursor.close()
         conexao.close()
 
-def atualizar_instrutor(atributo: str):
+def atualizar_instrutor(id_instrutor: int, parametro_atributo: str, atributo: str):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute(f"UPDATE {atributo} FROM instrutores")    
+        cursor.execute(f"UPDATE instrutores SET {atributo} = %s WHERE id_instrutor = %s", [parametro_atributo, id_instrutor])    
         conexao.commit()
         print(f"{atributo} de instrutor atualizado com sucesso!")
     except Exception as e:

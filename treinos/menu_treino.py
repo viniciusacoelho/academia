@@ -34,13 +34,13 @@ def menu_treino():
                     atualizar_treino()
                 case 5:
                     listar_treinos()
-                    id = int(input("Digite o ID do treino para deletar: "))
-                    deletar_treino(id)
+                    id_treino = int(input("Digite o ID do treino para deletar: "))
+                    deletar_treino(id_treino)
                 case 6:
                     print("Voltando...")
                     break
                 case _:
-                    print("Opção inválida!")
+                    print("Opção inválida! Tente novamente.")
 
         except ValueError:
             print("[ERRO]: Digite um número!")

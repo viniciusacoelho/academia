@@ -5,6 +5,7 @@ def criar_conta():
     limpar_tela()
 
     print("\n--------------------------------------------\n            Criar Conta\n--------------------------------------------")
+
     nome = input("Digite seu nome: ")
     email = input("Digite seu e-mail: ")
     altura = float(input("Digite sua altura: "))

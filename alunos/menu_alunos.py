@@ -4,6 +4,7 @@ from alunos.login_aluno import login
 
 def menu_alunos():
     limpar_tela()
+
     print("--------------------------------------------\n        Menu Plano\n--------------------------------------------")
 
     menu = ["Criar Conta", "Login", "Voltar"]
@@ -22,6 +23,7 @@ def menu_alunos():
                     print("Voltando...")
                     break
                 case _:
-                    print("Opção inválida!")
+                    print("Opção inválida! Tente novamente.")
+
         except ValueError:
             print("[ERRO]: Digite um número!")
