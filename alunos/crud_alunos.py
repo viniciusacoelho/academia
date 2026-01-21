@@ -21,13 +21,14 @@ def autenticar_aluno(email: str, senha: str):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
+        cursor.execute("SELECT * FROM alunos WHERE email = %s;", [email])    
+        aluno = cursor.fetchone()
 
-        # if checar_senha(senha):
+        if aluno and checar_senha(senha, bytes(aluno[6])):
+            print("Aluno autenticado com sucesso!")
+            return aluno
+        return None
 
-
-        cursor.execute("SELECT FROM alunos WHERE email = %s AND senha = %s", [email, senha])    
-        conexao.commit()
-        print("Aluno autenticado com sucesso!")
     except Exception as e:
         print(f"[ERRO]: Falha ao autenticar aluno: {e}")
     finally:

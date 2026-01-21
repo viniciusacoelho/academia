@@ -41,16 +41,11 @@ def atualizar_plano(id_plano: int):
                             tipo = int(input("Digite o ID do novo tipo do plano: "))
 
                             match tipo:
-                                case 1:
-                                    pass
-                                case 2:
-                                    pass
-                                case 3:
-                                    pass
-                                case 4:
-                                    pass
-                                case _:
-                                    print("Opção inválida! Tente novamente.")
+                                case 1: pass
+                                case 2: pass
+                                case 3: pass
+                                case 4: pass
+                                case _: print("Opção inválida! Tente novamente.")
                             break
                         except Exception as e:
                             print("[ERRO]: Digite um número!")
@@ -67,7 +62,6 @@ def atualizar_plano(id_plano: int):
                 case 1:
                     preco = float(input("Digite o novo preço do plano: "))
                     atualizar_plano(id_plano, preco, "preco")
-
                 case 6:
                     print("Voltando...")
                     break
@@ -76,5 +70,3 @@ def atualizar_plano(id_plano: int):
 
         except ValueError:
             print("[ERRO]: Digite um número!")
-
-    # atualizar_plano(atributo)

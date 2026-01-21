@@ -29,9 +29,8 @@ def menu_treino():
 
                     treinos = listar_treinos()
                     for treino in treinos:
-                        print(f"Treino {treino[0]}\nNome: {treino[1]}\nDescrição: {treino[2]}\nPreço: R$ {treino[3]}")
-                case 4:
-                    atualizar_treino()
+                        print(f"Treino {treino[0]}\nExercícios: {treino[1]}\nDescrição: {treino[2]}\nTipo: {treino[3]}\nPreço: {treino[4]}")
+                case 4: atualizar_treino()
                 case 5:
                     listar_treinos()
                     id_treino = int(input("Digite o ID do treino para deletar: "))

@@ -1,7 +1,9 @@
+from limpar_tela.limpar_tela import limpar_tela
 from alunos.crud_alunos import autenticar_aluno
 from alunos.painel_aluno import painel_aluno
 
-def login(aluno_autenticado: list):
+def login():
+    limpar_tela()
     print("--------------------------------------------\n           Login\n--------------------------------------------")
 
     email = input("Digite seu e-mail: ")
@@ -9,4 +11,4 @@ def login(aluno_autenticado: list):
 
     aluno_autenticado = autenticar_aluno(email, senha)
 
-    painel_aluno(aluno_autenticado)
+    painel_aluno(aluno_autenticado[0])
