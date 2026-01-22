@@ -2,22 +2,22 @@ from limpar_tela.limpar_tela import limpar_tela
 from planos.crud_planos import cadastrar_plano
 
 def registrar_plano():
-    limpar_tela()
-
-    print("--------------------------------------------\n            Cadastrar Plano\n--------------------------------------------")
-
-    nome = input("Digite o nome do plano: ")
-    descricao = input("Digite a descrição do plano: ")
-
-    menu = ["Mensal", "Semestral", "Anual"]
     while True:
+        limpar_tela()
+
+        print("--------------------------------------------\n            Cadastrar Plano\n--------------------------------------------")
+
+        nome = input("Digite o nome do plano: ")
+        descricao = input("Digite a descrição do plano: ")
+
+        menu = ["Mensal", "Semestral", "Anual"]
         print("--------------------------------------------\n")
         for i in range(len(menu)):
             print(f"{i + 1} - {menu[i]}")
 
         try:
             print("\n--------------------------------------------")
-            tipo = int(input("Digite o ID do tipo do plano: "))
+            tipo = int(input("Digite o ID do tipo de plano: "))
 
             tipo = str(tipo)
             match tipo:

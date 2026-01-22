@@ -4,13 +4,12 @@ from planos.crud_planos import listar_planos, buscar_plano, atualizar_plano, del
 from planos.atualizar_plano import atualizar_plano
 
 def menu_planos():
-    limpar_tela()
+    while True:    
+        limpar_tela()
 
-    print("--------------------------------------------\n        Menu Plano\n--------------------------------------------")
+        print("--------------------------------------------\n        Menu Plano\n--------------------------------------------")
 
-    menu = ["Cadastrar Plano", "Listar Planos", "Buscar Plano", "Atualizar Plano", "Deletar Plano", "Voltar"]
-
-    while True:
+        menu = ["Cadastrar Plano", "Listar Planos", "Buscar Plano", "Atualizar Plano", "Deletar Plano", "Voltar"]
         for i in range(len(menu)):
             print(f"{i + 1} - {menu[i]}")
 
@@ -25,7 +24,7 @@ def menu_planos():
                     print("Planos listados com sucesso!")
                     
                     for plano in planos:
-                        print(f"Plano {plano[0]}\nNome: {plano[1]}\nDescrição: {plano[2]}\nTipo: {plano[3]}\nPreço: {plano[4]}")
+                        print(f"Plano {plano[0]}\nNome: {plano[1]}\nDescrição: {plano[2]}\nTipo: {plano[3]}\nPreço: R$ {plano[4]}")
                 case 3:
                     nome = input("Digite o nome do plano para buscar: ")
                     buscar_plano(nome)

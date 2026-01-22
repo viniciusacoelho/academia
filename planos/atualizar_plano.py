@@ -2,9 +2,9 @@ from limpar_tela.limpar_tela import limpar_tela
 from planos.crud_planos import listar_planos
 
 def atualizar_plano(id_plano: int):
-    limpar_tela()
-
     while True:
+        limpar_tela()
+
         listar_planos(id_plano)
 
         print("\n--------------------------------------------\n          Atualizar Plano\n--------------------------------------------")

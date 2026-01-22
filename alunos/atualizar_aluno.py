@@ -2,12 +2,12 @@ from limpar_tela.limpar_tela import limpar_tela
 from alunos.crud_alunos import atualizar_aluno
 
 def atualizar_aluno(id_aluno: list):
-    limpar_tela()
-
-    print("\n--------------------------------------------\n          Atualizar Aluno\n--------------------------------------------")
-
-    menu = ["Editar Nome", "Editar E-mail", "Editar Altura", "Editar Peso", "Editar Data de Nascimento", "Editar Senha", "Voltar"]
     while True:
+        limpar_tela()
+
+        print("\n--------------------------------------------\n          Atualizar Aluno\n--------------------------------------------")
+
+        menu = ["Editar Nome", "Editar E-mail", "Editar Altura", "Editar Peso", "Editar Data de Nascimento", "Editar Senha", "Voltar"]
         for i in range(len(menu)):
             print(f"{i + 1} - {menu[i]}")
 

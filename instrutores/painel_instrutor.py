@@ -5,12 +5,13 @@ from alunos.crud_alunos import listar_alunos
 from treinos.registrar_treino import registrar_treino
 
 def painel_instrutor(instrutor_autenticado: list):
-    limpar_tela()
-
-    print("\n--------------------------------------------\n            Painel Aluno\n--------------------------------------------")
-
-    menu = ["Criar Treino", "Visualizar Alunos", "Editar Treino", "Atualizar Cadastro", "Excluir Conta", "Voltar"]
     while True:
+    
+        limpar_tela()
+
+        print("\n--------------------------------------------\n            Painel Aluno\n--------------------------------------------")
+
+        menu = ["Criar Treino", "Visualizar Alunos", "Editar Treino", "Atualizar Cadastro", "Excluir Conta", "Voltar"]
         for i in range(len(menu)):
             print(f"{i + 1} - {menu[i]}")
 

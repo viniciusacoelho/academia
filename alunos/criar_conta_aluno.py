@@ -1,5 +1,6 @@
 from limpar_tela.limpar_tela import limpar_tela
 from alunos.crud_alunos import cadastrar_aluno
+from alunos.login_aluno import input_asterisco
 
 def criar_conta():
     limpar_tela()
@@ -8,12 +9,29 @@ def criar_conta():
 
     nome = input("Digite seu nome: ")
     email = input("Digite seu e-mail: ")
-    altura = float(input("Digite sua altura: "))
-    ## TODO: validar se uma pessoa não digitar o ponto e tiver 3 numeros colocar um ponto ou imprimir uma mensagem de erro
 
-    peso = float(input("Digite seu peso: "))
-    # data_nacimento = int(input("Digite sua data de nascimento: "))
-    data_nacimento = input("Digite sua data de nascimento: ")
-    senha = input("Digite sua senha: ")
+    while True:
+        try:
+            altura = float(input("Digite sua altura: "))
+            break
+        except ValueError:
+            print("[ERRO]: Digite um número!")
+
+    ## TODO: validar se uma pessoa não digitar o ponto e tiver 3 numeros colocar um ponto ou imprimir uma mensagem de erro
+    while True:
+        try:
+            peso = float(input("Digite seu peso: "))
+            break
+        except ValueError:
+            print("[ERRO]: Digite um número!")
+
+    while True:
+        try:
+            data_nacimento = int(input("Digite sua data de nascimento: "))
+            break
+        except ValueError:
+            print("[ERRO]: Digite um número!")
+
+    senha = input_asterisco("Digite sua senha: ")
 
     cadastrar_aluno(nome, email, altura, peso, data_nacimento, senha)

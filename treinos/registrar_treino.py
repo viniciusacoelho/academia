@@ -2,13 +2,12 @@ from limpar_tela.limpar_tela import limpar_tela
 from treinos.crud_treinos import cadastrar_treino
 
 def registrar_treino(id_instrutor: int, id_aluno: int):
-    limpar_tela()
-
-    print("--------------------------------------------\n              Cadastrar Treino\n--------------------------------------------")
-
-    menu = ["Empurrar", "Puxar", "Inferior", "Inferior Intermediário"]
-
     while True:
+        limpar_tela()
+
+        print("--------------------------------------------\n              Cadastrar Treino\n--------------------------------------------")
+
+        menu = ["Empurrar", "Puxar", "Inferior", "Inferior Intermediário"]
         for i in range(len(menu)):
             print(f"{i + 1} - {menu[i]}")
 
@@ -41,6 +40,7 @@ def registrar_treino(id_instrutor: int, id_aluno: int):
         peso = int(input(f"Digite o peso do exercício {i + 1}: "))
         repeticoes = int(input(f"Digite o número de repetições do exercício {i + 1}: "))
         series = int(input(f"Digite a quantidade de séries do exercício {i + 1}: "))
+        # TODO: Colocar time no tempo de descanço
         # tempo_descanso = float(input(f"Digite o tempo de descanso do exercício {i + 1}: "))
         tempo_descanso = input(f"Digite o tempo de descanso do exercício {i + 1}: ")
 

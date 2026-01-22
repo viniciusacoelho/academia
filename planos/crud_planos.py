@@ -4,7 +4,7 @@ def cadastrar_plano(nome: str, descricao: str, tipo: str, preco: float):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("INSERT INTO planos (nome, descricao, tipo, preco) VALUES (%s, %s, %s, %s)", [nome, descricao, tipo, preco])    
+        cursor.execute("INSERT INTO planos (nome, descricao, tipo, preco) VALUES (%s, %s, %s, %s);", [nome, descricao, tipo, preco])    
         conexao.commit()
         print("Plano cadastrado com sucesso!")
     except Exception as e:
@@ -17,7 +17,7 @@ def listar_planos() -> list | None:
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT * FROM planos")
+        cursor.execute("SELECT * FROM planos;")
         conexao.commit()
         # print("Planos listados com sucesso!")
         return cursor.fetchall()
@@ -31,7 +31,7 @@ def buscar_plano(nome: str):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT * FROM planos WHERE nome = %s", [f"%{nome}%"])    
+        cursor.execute("SELECT * FROM planos WHERE nome = %s;", [f"%{nome}%"])    
         conexao.commit()
         print("Plano buscado com sucesso!")
         return cursor.fetchone()
@@ -45,7 +45,7 @@ def atualizar_plano(id_plano: int, parametro_atributo: str | float, atributo: st
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute(f"UPDATE alunos SET {atributo} = %s FROM planos WHERE id_plano = %s", [parametro_atributo , id_plano])
+        cursor.execute(f"UPDATE alunos SET {atributo} = %s FROM planos WHERE id_plano = %s;", [parametro_atributo , id_plano])
         conexao.commit()
         print(f"{atributo} de plano atualizado com sucesso!")
     except Exception as e:
@@ -54,11 +54,11 @@ def atualizar_plano(id_plano: int, parametro_atributo: str | float, atributo: st
         cursor.close()
         conexao.close()
 
-def deletar_plano(id: int):
+def deletar_plano(id_plano: int):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute(f"DELETE FROM planos WHERE id = %s", id)    
+        cursor.execute(f"DELETE FROM planos WHERE id = %s;", [id_plano])    
         conexao.commit()
         # print(f"Plano {nome} deletado com sucesso!")
         print("Plano deletado com sucesso!")

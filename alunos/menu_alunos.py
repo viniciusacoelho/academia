@@ -3,12 +3,12 @@ from alunos.criar_conta_aluno import criar_conta
 from alunos.login_aluno import login
 
 def menu_alunos():
-    limpar_tela()
-
-    print("--------------------------------------------\n        Menu Plano\n--------------------------------------------")
-
-    menu = ["Criar Conta", "Login", "Voltar"]
     while True:
+        limpar_tela()
+
+        print("--------------------------------------------\n        Menu Plano\n--------------------------------------------")
+
+        menu = ["Criar Conta", "Login", "Voltar"]
         for i in range(len(menu)):
             print(f"{i + 1} - {menu[i]}")
 

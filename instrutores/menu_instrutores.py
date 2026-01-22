@@ -4,27 +4,28 @@ from instrutores.login_instrutor import login
 from instrutores.crud_instrutores import listar_instrutores
 
 def menu_instrutores():
-    limpar_tela()
-
-    print("--------------------------------------------\n        Menu Instrutor\n--------------------------------------------")
-
-    menu = ["Criar Conta", "Login", "Voltar"]
     while True:
-        for i in range(len(menu)):
-            print(f"{i + 1} - {menu[i]}")
+        limpar_tela()
 
-        try:
-            print("--------------------------------------------")
-            opcao = int(input("Digite uma opção: "))
+        print("--------------------------------------------\n        Menu Instrutor\n--------------------------------------------")
 
-            match opcao:
-                case 1: criar_conta()
-                case 2: login()
-                case 3:
-                    print("Voltando...")
-                    break
-                case _:
-                    print("Opção inválida! Tente novamente.")
+        menu = ["Criar Conta", "Login", "Voltar"]
+        while True:
+            for i in range(len(menu)):
+                print(f"{i + 1} - {menu[i]}")
 
-        except ValueError:
-            print("[ERRO]: Digite um número!")
+            try:
+                print("--------------------------------------------")
+                opcao = int(input("Digite uma opção: "))
+
+                match opcao:
+                    case 1: criar_conta()
+                    case 2: login()
+                    case 3:
+                        print("Voltando...")
+                        break
+                    case _:
+                        print("Opção inválida! Tente novamente.")
+
+            except ValueError:
+                print("[ERRO]: Digite um número!")

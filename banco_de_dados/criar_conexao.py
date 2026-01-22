@@ -1,8 +1,8 @@
-import psycopg2
+from psycopg2 import connect
 
 def criar_conexao():
     try:
-        conexao = psycopg2.connect(
+        conexao = connect(
             dbname = "academia",
             user = "postgres",
             password = "1234",

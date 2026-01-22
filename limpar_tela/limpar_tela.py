@@ -1,6 +1,6 @@
-import os
+from os import system
 
 def limpar_tela():
     print("--------------------------------------------")
-    os.system("pause")
-    os.system("cls")
+    system("pause")
+    system("cls")

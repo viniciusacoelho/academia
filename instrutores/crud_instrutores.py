@@ -8,7 +8,7 @@ def cadastrar_instrutor(nome: str, email: str, cpf: str, senha: str):
 
         senha = criptografar(senha)
 
-        cursor.execute("INSERT INTO instrutores (nome, email, cpf, senha) VALUES (%s, %s, %s, %s)", [nome, email, cpf, senha])    
+        cursor.execute("INSERT INTO instrutores (nome, email, cpf, senha) VALUES (%s, %s, %s, %s);", [nome, email, cpf, senha])    
         conexao.commit()
         print("Instrutor cadastrado com sucesso!")
     except Exception as e:
@@ -27,10 +27,10 @@ def autenticar_instrutor(email: str, senha: str):
         if instrutor and checar_senha(senha, bytes(instrutor[4])):
             print("Instrutor autenticado com sucesso!")
             return instrutor
-        return None
 
     except Exception as e:
         print(f"[ERRO]: Falha ao autenticar instrutor: {e}")
+        return None
     finally:
         cursor.close()
         conexao.close()
@@ -39,7 +39,7 @@ def listar_instrutores() -> list | None:
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT * FROM instrutores")
+        cursor.execute("SELECT * FROM instrutores;")
         conexao.commit()
         # print("Instrutores listados com sucesso!")
         return cursor.fetchall()
@@ -53,7 +53,7 @@ def buscar_instrutor(email: str):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT * FROM instrutores WHERE email = %s", [f"%{email}%"])    
+        cursor.execute("SELECT * FROM instrutores WHERE email = %s;", [f"%{email}%"])    
         conexao.commit()
         print("Instrutor buscado com sucesso!")
         return cursor.fetchone()
@@ -67,7 +67,7 @@ def atualizar_instrutor(id_instrutor: int, parametro_atributo: str, atributo: st
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute(f"UPDATE instrutores SET {atributo} = %s WHERE id_instrutor = %s", [parametro_atributo, id_instrutor])    
+        cursor.execute(f"UPDATE instrutores SET {atributo} = %s WHERE id_instrutor = %s;", [parametro_atributo, id_instrutor])    
         conexao.commit()
         print(f"{atributo} de instrutor atualizado com sucesso!")
     except Exception as e:
@@ -76,11 +76,11 @@ def atualizar_instrutor(id_instrutor: int, parametro_atributo: str, atributo: st
         cursor.close()
         conexao.close()
 
-def deletar_instrutor(id: int):
+def deletar_instrutor(id_instrutor: int):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute(f"DELETE FROM instrutores WHERE id = %s", id)    
+        cursor.execute(f"DELETE FROM instrutores WHERE id = %s;", [id_instrutor])    
         conexao.commit()
         # print(f"instrutor {nome} deletado com sucesso!")
         print("Instrutor deletado com sucesso!")
