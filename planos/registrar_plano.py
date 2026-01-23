@@ -17,19 +17,21 @@ def registrar_plano():
 
         try:
             print("\n--------------------------------------------")
-            tipo = int(input("Digite o ID do tipo de plano: "))
+            id_tipo = int(input("Digite o ID do tipo de plano: "))
 
-            tipo = str(tipo)
-            match tipo:
+            match id_tipo:
                 case 1:
                     tipo = "Mensal"
+                    break
                 case 2:
                     tipo = "Semestral"
+                    break
                 case 3:
                     tipo = "Anual"
+                    break
                 case _:
                     print("Opção inválida!")
-            break
+            
         except Exception as e:
             print("[ERRO]: Digite um número!")
 

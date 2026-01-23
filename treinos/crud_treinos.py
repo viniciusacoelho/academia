@@ -67,3 +67,28 @@ def deletar_treino(id_treino: int):
     finally:
         cursor.close()
         conexao.close()
+
+def listar_treino_aluno(id_aluno: int) -> list | None:
+    try:
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+        cursor.execute("SELECT * FROM treinos WHERE id_aluno = %s ORDER BY id_treino;", [id_aluno])    
+        return cursor.fetchall()
+    except Exception as e:
+        print(f"[ERRO]: Falha ao visualizar treino de aluno: {e}")
+    finally:
+        cursor.close()
+        conexao.close()
+
+def atualizar_treino_aluno(id_aluno: int, id_treino: int, nome_exercicio: str, parametro_atributo: str | int, atributo: str):
+    try:
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+        cursor.execute(f"UPDATE treinos SET {atributo} = %s WHERE id_treino = %s AND id_aluno = %s AND nome_exercicio = %s;", [parametro_atributo, id_treino, id_aluno, nome_exercicio])    
+        conexao.commit()
+        print(f"{atributo} de treino atualizado com sucesso!")
+    except Exception as e:
+        print(f"[ERRO]: Falha ao atualizar treino: {e}")
+    finally:
+        cursor.close()
+        conexao.close()

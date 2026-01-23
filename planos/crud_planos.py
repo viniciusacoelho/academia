@@ -17,7 +17,7 @@ def listar_planos() -> list | None:
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT * FROM planos;")
+        cursor.execute("SELECT * FROM planos ORDER BY id_plano;")
         conexao.commit()
         # print("Planos listados com sucesso!")
         return cursor.fetchall()
@@ -41,13 +41,13 @@ def buscar_plano(nome: str):
         cursor.close()
         conexao.close()
 
-def atualizar_plano(id_plano: int, parametro_atributo: str | float, atributo: str):
+def atualizar_plano(id_plano: int, parametro_atributo: str | float, atributo: str, nome_atributo: str):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute(f"UPDATE alunos SET {atributo} = %s FROM planos WHERE id_plano = %s;", [parametro_atributo , id_plano])
+        cursor.execute(f"UPDATE planos SET {atributo} = %s WHERE id_plano = %s;", [parametro_atributo , id_plano])
         conexao.commit()
-        print(f"{atributo} de plano atualizado com sucesso!")
+        print(f"{nome_atributo} de plano atualizado com sucesso!")
     except Exception as e:
         print(f"[ERRO]: Falha ao atualizar plano: {e}")
     finally:
@@ -58,7 +58,46 @@ def deletar_plano(id_plano: int):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute(f"DELETE FROM planos WHERE id = %s;", [id_plano])    
+        cursor.execute(f"DELETE FROM planos WHERE id_plano = %s;", [id_plano])    
+        conexao.commit()
+        # print(f"Plano {nome} deletado com sucesso!")
+        print("Plano deletado com sucesso!")
+    except Exception as e:
+        print(f"[ERRO]: Falha ao deletar plano: {e}")
+    finally:
+        cursor.close()
+        conexao.close()
+
+def cadastrar_plano_aluno(id_aluno: int, id_plano: int, data_hora: str, metodo_pagamento: str):
+    try:
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+        cursor.execute("INSERT INTO plano_aluno (id_plano, id_aluno, metodo_pagamento, data_hora) VALUES (%s, %s, %s, %s);", [id_plano, id_aluno, metodo_pagamento, data_hora])    
+        conexao.commit()
+        print("Aluno cadastrado com sucesso!")
+    except Exception as e:
+        print(f"[ERRO]: Falha ao cadastrar aluno: {e}")
+    finally:
+        cursor.close()
+        conexao.close()
+
+def listar_plano_aluno(id_aluno: int) -> list | None:
+    try:
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+        cursor.execute("SELECT p.id_plano, p.nome, p.descricao, p.tipo, p.preco FROM plano_aluno pa JOIN planos p ON p.id_plano = pa.id_plano WHERE id_aluno = %s;", [id_aluno])
+        return cursor.fetchall()
+    except Exception as e:
+        print(f"[ERRO]: Falha ao cadastrar aluno: {e}")
+    finally:
+        cursor.close()
+        conexao.close()
+
+def deletar_plano_aluno(id_plano: int, id_aluno: int):
+    try:
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+        cursor.execute(f"DELETE FROM plano_aluno WHERE id_plano = %s AND id_aluno = %s;", [id_plano, id_aluno])    
         conexao.commit()
         # print(f"Plano {nome} deletado com sucesso!")
         print("Plano deletado com sucesso!")

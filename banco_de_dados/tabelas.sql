@@ -13,7 +13,7 @@ CREATE TABLE planos(
 	-- preco NUMERIC(10,2) NOT NULL CHECK (preco >= 0)
 );
 
-SELECT * FROM planos;
+SELECT * FROM planos ORDER BY id_plano;
 
 CREATE TABLE alunos(
 	id_aluno SERIAL PRIMARY KEY,
@@ -51,7 +51,7 @@ CREATE TABLE treinos(
 	FOREIGN KEY (id_instrutor) REFERENCES instrutores (id_instrutor)
 );
 
-SELECT * FROM treinos ORDER BY id_treino;
+SELECT * FROM treinos;
 
 CREATE TABLE plano_aluno(
 	id_plano INTEGER NOT NULL,
@@ -65,9 +65,25 @@ CREATE TABLE plano_aluno(
 
 SELECT * FROM plano_aluno;
 
-SELECT a.nome, p.nome, pa.metodo_pagamento, pa.data_hora FROM plano_aluno pa 
+SELECT a.nome, p.nome, pa.data_hora FROM plano_aluno pa 
 JOIN planos p ON p.id_plano = pa.id_plano 
 JOIN alunos a ON a.id_aluno = pa.id_aluno 
-JOIN plano_aluno ON pa.data_hora = pa.data_hora AND pa.metodo_pagamento = pa.metodo_pagamento;
+JOIN plano_aluno ON pa.data_hora = pa.data_hora 
+JOIN plano_aluno ON pa.metodo_pagamento = pa.metodo_pagamento;
 
 SELECT p.nome, p.descricao, p.tipo, p.preco FROM plano_aluno pa JOIN planos p ON p.id_plano = pa.id_plano WHERE id_aluno = 1;
+
+-- TODO: Verificar se há necessidade desta tabela
+CREATE TABLE instrutor_aluno(
+	id_instrutor INTEGER,
+	id_aluno INTEGER,
+	PRIMARY KEY(id_instrutor, id_aluno),
+	FOREIGN KEY (id_instrutor) REFERENCES instrutores (id_instrutor),
+	FOREIGN KEY (id_aluno) REFERENCES alunos (id_aluno)
+);
+
+SELECT * FROM instrutor_aluno ORDER BY id_instrutor;
+
+SELECT i.nome, a.nome FROM treinos t
+JOIN instrutores i ON i.id_instrutor = t.id_instrutor
+JOIN alunos a ON a.id_aluno = t.id_aluno;

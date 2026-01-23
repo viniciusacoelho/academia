@@ -1,7 +1,7 @@
 from limpar_tela.limpar_tela import limpar_tela
 from planos.registrar_plano import registrar_plano
 from planos.crud_planos import listar_planos, buscar_plano, atualizar_plano, deletar_plano
-from planos.atualizar_plano import atualizar_plano
+# from planos.atualizar_plano import atualizar_plano
 
 def menu_planos():
     while True:    
@@ -19,23 +19,16 @@ def menu_planos():
             
             match opcao:
                 case 1: registrar_plano()
-                case 2:
-                    planos = listar_planos()
-                    print("Planos listados com sucesso!")
-                    
-                    for plano in planos:
-                        print(f"Plano {plano[0]}\nNome: {plano[1]}\nDescrição: {plano[2]}\nTipo: {plano[3]}\nPreço: R$ {plano[4]}")
+                case 2: imprimir_planos()
                 case 3:
                     nome = input("Digite o nome do plano para buscar: ")
-                    buscar_plano(nome)
+                    plano_busca = buscar_plano(nome)
 
-                    planos = listar_planos()
-                    for plano in planos:
+                    for plano in plano_busca:
                         print(f"Plano {plano[0]}\nNome: {plano[1]}\nDescrição: {plano[2]}\nTipo: {plano[3]}\nPreço: R$ {plano[4]}")
-                case 4:
-                    atualizar_plano()
+                case 4: atualizar_planos()
                 case 5:
-                    listar_planos()
+                    imprimir_planos()
                     id_plano = int(input("Digite o ID do plano para deletar: "))
                     deletar_plano(id_plano)
                 case 6:
@@ -43,6 +36,99 @@ def menu_planos():
                     break
                 case _:
                     print("Opção inválida! Tente novamente.")
+        except ValueError:
+            print("[ERRO]: Digite um número!")
+
+def imprimir_planos():
+    planos = listar_planos()
+    print("Planos listados com sucesso!")
+
+    for plano in planos:
+        print(f"Plano {plano[0]}\nNome: {plano[1]}\nDescrição: {plano[2]}\nTipo: {plano[3]}\nPreço: R$ {plano[4]}")
+
+def atualizar_planos():
+    id_plano = selecionar_plano()
+    while True:
+        limpar_tela()
+
+        print("\n--------------------------------------------\n          Atualizar Plano\n--------------------------------------------")
+
+        menu = ["Nome", "Descrição", "Tipo", "Preço", "Voltar"]
+        while True:
+            for i in range(len(menu)):
+                print(f"{i + 1} - {menu[i]}")
+
+            try:
+                print("--------------------------------------------")
+                opcao = int(input("Digite uma opção: "))
+
+                match opcao:
+                    case 1:
+                        nome = input("Digite o novo nome do plano: ")
+                        atualizar_plano(id_plano, nome, "nome", "Nome")
+                    case 2:
+                        descricao = input("Digite a nova descrição do plano: ")
+                        atualizar_plano(id_plano, descricao, "descricao", "Descrição")
+                    case 3:
+                        menu = ["Mensal", "Semestral", "Anual"]
+                        print("--------------------------------------------")
+                        for i in range(len(menu)):
+                            print(f"{i + 1} - {menu[i]}")
+
+                        try:
+                            print("--------------------------------------------")
+                            id_novo_tipo = int(input("Digite o ID do novo tipo de plano: "))
+
+                            match id_novo_tipo:
+                                case 1:
+                                    tipo = "Mensal"
+                                    atualizar_plano(id_plano, tipo, "tipo", "Tipo")
+                                    break
+                                case 2:
+                                    tipo = "Mensal"
+                                    atualizar_plano(id_plano, tipo, "tipo", "Tipo")
+                                    break
+                                case 3:
+                                    tipo = "Semestral"
+                                    atualizar_plano(id_plano, tipo, "tipo", "Tipo")
+                                    break
+                                case 4:
+                                    tipo = "Anual"
+                                    atualizar_plano(id_plano, tipo, "tipo", "Tipo")
+                                    break
+                                case _:
+                                    print("Opção inválida! Tente novamente.")
+
+                        except ValueError:
+                            print("[ERRO]: Digite um número!")
+
+                    case 4:
+                        try:
+                            preco = float(input("Digite o novo preço do plano: "))
+                            atualizar_plano(id_plano, preco, "preco", "Preço")
+                        except ValueError:
+                            print("[ERRO]: Digite um número!")
+                    case 5:
+                        print("Voltando...")
+                        break
+                    case _:
+                        print("Opção inválida! Tente novamente.")
+
+            except ValueError:
+                print("[ERRO]: Digite um número!")
+
+def selecionar_plano():
+    while True:
+        planos = listar_planos()
+        
+        print("--------------------------------------------")
+        for plano in planos:
+            print(f"Plano {plano[0]}\nNome: {plano[1]}\nDescrição: {plano[2]}\nTipo: {plano[3]}\nPreço: R$ {plano[4]}")
+            print("--------------------------------------------")
+
+        try:
+            id_plano = int(input("Digite o ID do plano para atualizar: "))
+            return id_plano
         except ValueError:
             print("[ERRO]: Digite um número!")
 

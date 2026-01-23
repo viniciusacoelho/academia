@@ -1,15 +1,18 @@
 from limpar_tela.limpar_tela import limpar_tela
 from planos.crud_planos import listar_planos
 
-def atualizar_plano(id_plano: int):
+def atualizar_plano():
     while True:
         limpar_tela()
 
-        listar_planos(id_plano)
-
         print("\n--------------------------------------------\n          Atualizar Plano\n--------------------------------------------")
+        
+        planos = listar_planos()
+        for plano in planos:
+            print(f"Plano {plano[0]}\nNome: {plano[1]}\nDescrição: {plano[2]}\nTipo: {plano[3]}\nPreço: R$ {plano[4]}")
+
         try:
-            id = int("Digite o ID do plano para atualizar: ")
+            id_plano = int("Digite o ID do plano para atualizar: ")
             break
         except ValueError:
             print("[ERRO]: Digite um número!")
@@ -57,7 +60,7 @@ def atualizar_plano(id_plano: int):
                         tipo = "Semestral"
                     elif tipo == "3":
                         tipo = "Anual"
-                    atualizar_plano(id_plano, tipo, "tipo")
+                    atualizar_plano(id_plano, tipo, "tipo", "Tipo")
                     # tipo = input("Digite o novo tipo do plano: ")
                 case 1:
                     preco = float(input("Digite o novo preço do plano: "))
