@@ -17,7 +17,7 @@ def cadastrar_instrutor(nome: str, email: str, cpf: str, senha: str):
         cursor.close()
         conexao.close()
 
-def autenticar_instrutor(email: str, senha: str):
+def autenticar_instrutor(email: str, senha: str) -> tuple | None:
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
@@ -39,7 +39,7 @@ def listar_instrutores() -> list | None:
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT * FROM instrutores;")
+        cursor.execute("SELECT * FROM instrutores ORDER BY id_instrutor;")
         conexao.commit()
         # print("Instrutores listados com sucesso!")
         return cursor.fetchall()
@@ -86,6 +86,20 @@ def deletar_instrutor(id_instrutor: int):
         print("Instrutor deletado com sucesso!")
     except Exception as e:
         print(f"[ERRO]: Falha ao deletar instrutor: {e}")
+    finally:
+        cursor.close()
+        conexao.close()
+
+def listar_aluno_instrutor(id_instrutor: int) -> list | None:
+    try:
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+        cursor.execute("SELECT a.nome FROM treinos t JOIN alunos a ON a.id_aluno = t.id_aluno ORDER BY a.id_aluno WHERE id_instrutor = %s;", [id_instrutor])
+        conexao.commit()
+        # print("Instrutores listados com sucesso!")
+        return cursor.fetchall()
+    except Exception as e:
+        print(f"[ERRO]: Falha ao listar instrutores: {e}")
     finally:
         cursor.close()
         conexao.close()

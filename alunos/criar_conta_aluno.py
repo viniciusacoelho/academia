@@ -25,13 +25,14 @@ def criar_conta():
         except ValueError:
             print("[ERRO]: Digite um número!")
 
-    while True:
-        try:
-            data_nacimento = int(input("Digite sua data de nascimento: "))
-            break
-        except ValueError:
-            print("[ERRO]: Digite um número!")
+    data_nascimento = input("Digite sua data de nascimento: ")
+    # while True:
+        # try:
+        #     data_nascimento = int(input("Digite sua data de nascimento: "))
+        #     break
+        # except ValueError:
+        #     print("[ERRO]: Digite um número!")
 
     senha = input_asterisco("Digite sua senha: ")
 
-    cadastrar_aluno(nome, email, altura, peso, data_nacimento, senha)
+    cadastrar_aluno(nome, email, altura, peso, data_nascimento, senha)

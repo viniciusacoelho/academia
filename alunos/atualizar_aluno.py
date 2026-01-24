@@ -1,7 +1,7 @@
 from limpar_tela.limpar_tela import limpar_tela
 from alunos.crud_alunos import atualizar_aluno
 
-def atualizar_aluno(id_aluno: list):
+def atualizar_alunoo(id_aluno: list):
     while True:
         limpar_tela()
 

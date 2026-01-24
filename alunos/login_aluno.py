@@ -1,7 +1,6 @@
 from limpar_tela.limpar_tela import limpar_tela
 from alunos.crud_alunos import autenticar_aluno
 from alunos.painel_aluno import painel_aluno
-
 from msvcrt import getch
 
 def login():
@@ -18,7 +17,7 @@ def login():
         if aluno_autenticado:
             painel_aluno(aluno_autenticado[0])
         else:
-            print("E-mail ou senha incorretos! Tente novamente.")
+            print("E-mail e/ou senha incorretos! Tente novamente.")
 
 def input_asterisco(mensagem=""):
     print(mensagem, end="", flush=True)

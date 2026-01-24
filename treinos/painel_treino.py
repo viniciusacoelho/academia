@@ -8,6 +8,8 @@ def painel_treino(id_aluno: int):
         print("--------------------------------------------\n        Painel Treino\n--------------------------------------------")
 
         menu = ["Visualizar Treinos", "Editar Treino", "Voltar"]
+        # TODO:
+        # menu = ["Visualizar Treinos", "Editar Treino", "Adicionar Exercício", "Remover Exercício", "Voltar"]
         for i in range(len(menu)):
             print(f"{i + 1} - {menu[i]}")
 

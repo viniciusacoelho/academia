@@ -17,7 +17,7 @@ def cadastrar_aluno(nome: str, email: str, altura: float, peso: float, data_naci
         cursor.close()
         conexao.close()
 
-def autenticar_aluno(email: str, senha: str) -> list | None:
+def autenticar_aluno(email: str, senha: str) -> tuple | None:
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
@@ -40,7 +40,7 @@ def listar_alunos() -> list | None:
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT * FROM alunos;")
+        cursor.execute("SELECT * FROM alunos ORDER BY id_aluno;")
         conexao.commit()
         # print("Alunos listados com sucesso!")
         return cursor.fetchall()
@@ -64,13 +64,13 @@ def buscar_aluno(email: str):
         cursor.close()
         conexao.close()
 
-def atualizar_aluno(id_aluno: int, atributo: str | float, parametro_atributo: str):
+def atualizar_aluno(id_aluno: int, parametro_atributo: str | float, atributo: str, nome_atributo: str):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
         cursor.execute(f"UPDATE alunos SET {atributo} = %s WHERE id_aluno = %s;", [parametro_atributo, id_aluno])
         conexao.commit()
-        print(f"{atributo} de aluno atualizado com sucesso!")
+        print(f"{nome_atributo} de aluno atualizado com sucesso!")
     except Exception as e:
         print(f"[ERRO]: Falha ao atualizar {atributo} de aluno: {e}")
     finally:

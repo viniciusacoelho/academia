@@ -1,9 +1,10 @@
 from limpar_tela.limpar_tela import limpar_tela
-from planos.registrar_plano import registrar_plano
+# from planos.registrar_plano import registrar_plano
 from planos.crud_planos import listar_planos, buscar_plano, atualizar_plano, deletar_plano
 # from planos.atualizar_plano import atualizar_plano
+from planos.crud_planos import cadastrar_plano
 
-def menu_planos():
+def menu_plano():
     while True:    
         limpar_tela()
 
@@ -38,6 +39,49 @@ def menu_planos():
                     print("Opção inválida! Tente novamente.")
         except ValueError:
             print("[ERRO]: Digite um número!")
+
+def registrar_plano():
+    while True:
+        limpar_tela()
+
+        print("--------------------------------------------\n            Cadastrar Plano\n--------------------------------------------")
+
+        nome = input("Digite o nome do plano: ")
+        descricao = input("Digite a descrição do plano: ")
+
+        menu = ["Mensal", "Semestral", "Anual"]
+        print("--------------------------------------------")
+        for i in range(len(menu)):
+            print(f"{i + 1} - {menu[i]}")
+
+        try:
+            print("--------------------------------------------")
+            id_tipo = int(input("Digite o ID do tipo de plano: "))
+
+            match id_tipo:
+                case 1:
+                    tipo = "Mensal"
+                    break
+                case 2:
+                    tipo = "Semestral"
+                    break
+                case 3:
+                    tipo = "Anual"
+                    break
+                case _:
+                    print("Opção inválida!")
+            
+        except Exception as e:
+            print("[ERRO]: Digite um número!")
+
+    while True:
+        try:
+            preco = float(input("Digite o preço do plano: R$ "))
+            break
+        except ValueError:
+            print("[ERRO]: Digite um número!")
+
+    cadastrar_plano(nome, descricao, tipo, preco)
 
 def imprimir_planos():
     planos = listar_planos()

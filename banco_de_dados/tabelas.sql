@@ -18,24 +18,24 @@ SELECT * FROM planos ORDER BY id_plano;
 CREATE TABLE alunos(
 	id_aluno SERIAL PRIMARY KEY,
 	nome VARCHAR(255) NOT NULL,
-	email VARCHAR(255) NOT NULL,
-	altura NUMERIC(2,2) NOT NULL,
-	peso NUMERIC(2,2) NOT NULL,
+	email VARCHAR(255) NOT NULL UNIQUE,
+	altura NUMERIC(10,2) NOT NULL,
+	peso NUMERIC(10,2) NOT NULL,
 	data_nascimento VARCHAR(255) NOT NULL,
 	senha BYTEA NOT NULL
 );
 
-SELECT * FROM alunos;
+SELECT * FROM alunos ORDER BY id_aluno;
 
 CREATE TABLE instrutores(
 	id_instrutor SERIAL PRIMARY KEY,
 	nome VARCHAR(255) NOT NULL,
-	email VARCHAR(255) NOT NULL,
-	cpf CHAR(14) NOT NULL,
+	email VARCHAR(255) NOT NULL UNIQUE,
+	cpf CHAR(14) NOT NULL UNIQUE,
 	senha BYTEA NOT NULL
 );
 
-SELECT * FROM instrutores;
+SELECT * FROM instrutores ORDER BY id_instrutor;
 
 CREATE TABLE treinos(
 	id_treino SERIAL PRIMARY KEY,
@@ -51,7 +51,7 @@ CREATE TABLE treinos(
 	FOREIGN KEY (id_instrutor) REFERENCES instrutores (id_instrutor)
 );
 
-SELECT * FROM treinos;
+SELECT * FROM treinos ORDER BY id_treino;
 
 CREATE TABLE plano_aluno(
 	id_plano INTEGER NOT NULL,
@@ -63,7 +63,7 @@ CREATE TABLE plano_aluno(
 	FOREIGN KEY (id_aluno) REFERENCES alunos (id_aluno)
 );
 
-SELECT * FROM plano_aluno;
+SELECT * FROM plano_aluno ORDER BY id_plano;
 
 SELECT a.nome, p.nome, pa.data_hora FROM plano_aluno pa 
 JOIN planos p ON p.id_plano = pa.id_plano 
@@ -73,17 +73,4 @@ JOIN plano_aluno ON pa.metodo_pagamento = pa.metodo_pagamento;
 
 SELECT p.nome, p.descricao, p.tipo, p.preco FROM plano_aluno pa JOIN planos p ON p.id_plano = pa.id_plano WHERE id_aluno = 1;
 
--- TODO: Verificar se há necessidade desta tabela
-CREATE TABLE instrutor_aluno(
-	id_instrutor INTEGER,
-	id_aluno INTEGER,
-	PRIMARY KEY(id_instrutor, id_aluno),
-	FOREIGN KEY (id_instrutor) REFERENCES instrutores (id_instrutor),
-	FOREIGN KEY (id_aluno) REFERENCES alunos (id_aluno)
-);
-
-SELECT * FROM instrutor_aluno ORDER BY id_instrutor;
-
-SELECT i.nome, a.nome FROM treinos t
-JOIN instrutores i ON i.id_instrutor = t.id_instrutor
-JOIN alunos a ON a.id_aluno = t.id_aluno;
+SELECT a.nome, a.email, a.altura, a.peso FROM treinos t JOIN alunos a ON a.id_aluno = t.id_aluno WHERE id_instrutor = 1;

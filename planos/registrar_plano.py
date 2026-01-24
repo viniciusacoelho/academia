@@ -11,12 +11,12 @@ def registrar_plano():
         descricao = input("Digite a descrição do plano: ")
 
         menu = ["Mensal", "Semestral", "Anual"]
-        print("--------------------------------------------\n")
+        print("--------------------------------------------")
         for i in range(len(menu)):
             print(f"{i + 1} - {menu[i]}")
 
         try:
-            print("\n--------------------------------------------")
+            print("--------------------------------------------")
             id_tipo = int(input("Digite o ID do tipo de plano: "))
 
             match id_tipo:
