@@ -8,6 +8,8 @@ from alunos.login_aluno import input_asterisco
 from instrutores.crud_instrutores import autenticar_instrutor
 from instrutores.painel_instrutor import painel_instrutor
 
+from banco_de_dados.validar_unique import validar_unique
+
 def menu_instrutor():
     while True:
         limpar_tela()
@@ -23,8 +25,8 @@ def menu_instrutor():
             opcao = int(input("Digite uma opção: "))
 
             match opcao:
-                case 1: criar_conta()
-                case 2: login()
+                case 1: criar_conta_instrutor()
+                case 2: login_instrutor()
                 case 3:
                     print("Voltando...")
                     break
@@ -34,21 +36,36 @@ def menu_instrutor():
         except ValueError:
             print("[ERRO]: Digite um número!")
 
-def criar_conta():
+def criar_conta_instrutor():
     while True:
         limpar_tela()
 
         print("\n--------------------------------------------\n            Criar Conta\n--------------------------------------------")
 
         nome = input("Digite seu nome: ")
-        email = input("Digite seu e-mail: ")
-        # cpf = int(input("Digite seu CPF: "))
-        cpf = input("Digite seu CPF: ")
+    
+        while True:
+            email = input("Digite seu e-mail: ")
+            email_invalido = validar_unique(email, "instrutores", 2)
+    
+            if email_invalido:
+                print("E-mail já cadastrado anteriormente! Tente outro e-mail.")
+            else:
+                break
+
+        while True:
+            cpf = input("Digite seu CPF: ")
+            try:
+                int(cpf)
+                break
+            except ValueError:
+                print("[ERRO]: Digite um número!")
+
         senha = input_asterisco("Digite sua senha: ")
 
         cadastrar_instrutor(nome, email, cpf, senha)
 
-def login():
+def login_instrutor():
     while True:
         limpar_tela()
 

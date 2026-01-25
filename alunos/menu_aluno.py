@@ -23,8 +23,8 @@ def menu_aluno():
             opcao = int(input("Digite uma opção: "))
             
             match opcao:
-                case 1: criar_conta()
-                case 2: login()
+                case 1: criar_conta_aluno()
+                case 2: login_aluno()
                 case 3:
                     print("Voltando...")
                     break
@@ -34,7 +34,7 @@ def menu_aluno():
         except ValueError:
             print("[ERRO]: Digite um número!")
 
-def criar_conta():
+def criar_conta_aluno():
     limpar_tela()
 
     print("\n--------------------------------------------\n            Criar Conta\n--------------------------------------------")
@@ -61,7 +61,7 @@ def criar_conta():
 
     cadastrar_aluno(nome, email, altura, peso, data_nascimento, senha)
 
-def login():
+def login_aluno():
     while True:
         limpar_tela()
 

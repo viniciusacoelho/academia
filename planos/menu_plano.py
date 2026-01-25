@@ -20,7 +20,9 @@ def menu_plano():
             
             match opcao:
                 case 1: registrar_plano()
-                case 2: imprimir_planos()
+                case 2: 
+                    imprimir_planos()
+                    print("Planos listados com sucesso!")
                 case 3:
                     nome = input("Digite o nome do plano para buscar: ")
                     plano_busca = buscar_plano(nome)
@@ -85,10 +87,11 @@ def registrar_plano():
 
 def imprimir_planos():
     planos = listar_planos()
-    print("Planos listados com sucesso!")
+    # print("Planos listados com sucesso!")
 
     for plano in planos:
         print(f"Plano {plano[0]}\nNome: {plano[1]}\nDescrição: {plano[2]}\nTipo: {plano[3]}\nPreço: R$ {plano[4]}")
+        print("--------------------------------------------")
 
 def atualizar_planos():
     id_plano = selecionar_plano()

@@ -25,7 +25,7 @@ CREATE TABLE alunos(
 	senha BYTEA NOT NULL
 );
 
-SELECT * FROM alunos ORDER BY id_aluno;
+SELECT * FROM alunos ORDER BY id_aluno ASC;
 
 CREATE TABLE instrutores(
 	id_instrutor SERIAL PRIMARY KEY,
@@ -35,7 +35,7 @@ CREATE TABLE instrutores(
 	senha BYTEA NOT NULL
 );
 
-SELECT * FROM instrutores ORDER BY id_instrutor;
+SELECT * FROM instrutores ORDER BY id_instrutor ASC;
 
 CREATE TABLE treinos(
 	id_treino SERIAL PRIMARY KEY,
@@ -51,7 +51,7 @@ CREATE TABLE treinos(
 	FOREIGN KEY (id_instrutor) REFERENCES instrutores (id_instrutor)
 );
 
-SELECT * FROM treinos ORDER BY id_treino;
+SELECT * FROM treinos ORDER BY id_treino ASC;
 
 CREATE TABLE plano_aluno(
 	id_plano INTEGER NOT NULL,
@@ -63,14 +63,20 @@ CREATE TABLE plano_aluno(
 	FOREIGN KEY (id_aluno) REFERENCES alunos (id_aluno)
 );
 
-SELECT * FROM plano_aluno ORDER BY id_plano;
+SELECT * FROM plano_aluno ORDER BY id_plano ASC;
 
-SELECT a.nome, p.nome, pa.data_hora FROM plano_aluno pa 
+SELECT a.nome, a.email, p.nome, pa.data_hora, pa.metodo_pagamento FROM plano_aluno pa 
 JOIN planos p ON p.id_plano = pa.id_plano 
 JOIN alunos a ON a.id_aluno = pa.id_aluno 
-JOIN plano_aluno ON pa.data_hora = pa.data_hora 
-JOIN plano_aluno ON pa.metodo_pagamento = pa.metodo_pagamento;
+JOIN plano_aluno ON pa.data_hora = pa.data_hora AND pa.metodo_pagamento = pa.metodo_pagamento
+ORDER BY a.id_aluno;
 
-SELECT p.nome, p.descricao, p.tipo, p.preco FROM plano_aluno pa JOIN planos p ON p.id_plano = pa.id_plano WHERE id_aluno = 1;
+SELECT p.nome, p.descricao, p.tipo, p.preco FROM plano_aluno pa 
+JOIN planos p ON p.id_plano = pa.id_plano WHERE id_aluno = 1;
 
-SELECT a.nome, a.email, a.altura, a.peso FROM treinos t JOIN alunos a ON a.id_aluno = t.id_aluno WHERE id_instrutor = 1;
+SELECT a.nome, a.email, a.altura, a.peso FROM treinos t 
+JOIN alunos a ON a.id_aluno = t.id_aluno WHERE id_instrutor = 1;
+
+SELECT t.tipo, t.nome_exercicio, t.peso, t.repeticoes, t.series, t.tempo_descanso, i.nome FROM treinos t
+JOIN instrutores i ON i.id_instrutor = t.id_instrutor 
+ORDER BY t.id_treino ASC;

@@ -17,7 +17,7 @@ def listar_planos() -> list | None:
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT * FROM planos ORDER BY id_plano ORDER BY id_plano;")
+        cursor.execute("SELECT * FROM planos ORDER BY id_plano ASC;")
         conexao.commit()
         # print("Planos listados com sucesso!")
         return cursor.fetchall()
@@ -85,7 +85,7 @@ def listar_plano_aluno(id_aluno: int) -> list | None:
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT p.id_plano, p.nome, p.descricao, p.tipo, p.preco FROM plano_aluno pa JOIN planos p ON p.id_plano = pa.id_plano ORDER BY id_plano WHERE id_aluno = %s;", [id_aluno])
+        cursor.execute("SELECT p.id_plano, p.nome, p.descricao, p.tipo, p.preco FROM plano_aluno pa JOIN planos p ON p.id_plano = pa.id_plano WHERE id_aluno = %s ORDER BY id_plano;", [id_aluno])
         return cursor.fetchall()
     except Exception as e:
         print(f"[ERRO]: Falha ao cadastrar aluno: {e}")

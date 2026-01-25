@@ -1,6 +1,7 @@
 from limpar_tela.limpar_tela import limpar_tela
 from planos.crud_planos import listar_planos, cadastrar_plano_aluno, listar_plano_aluno, deletar_plano_aluno
 from pagamento.pagamento import pagamento
+from planos.menu_plano import imprimir_planos
 
 def painel_plano(id_aluno: int):
     while True:
@@ -30,24 +31,29 @@ def painel_plano(id_aluno: int):
             print("[ERRO]: Digite um número!")
 
 def assinar_plano(id_aluno: int):
-    while True:
-        planos = listar_planos()
+    total_planos = listar_planos()
+    if len(total_planos) > 0:
+        while True:
+            imprimir_planos()
 
-        for plano in planos:
-            print(f"Plano {plano[0]}\nNome: {plano[1]}\nDescrição: {plano[2]}\nTipo: {plano[3]}\nPreço: {plano[4]}")
-
-        try:
-            id_plano = int(input("Digite o ID do plano para assinar: "))
-            metodo_pagamento, data_hora = pagamento()
-            cadastrar_plano_aluno(id_aluno, id_plano, data_hora, metodo_pagamento)
-            break
-        except ValueError:
-            print("[ERRO]: Digite um número!")
+            try:
+                id_plano = int(input("Digite o ID do plano para assinar: "))
+                metodo_pagamento, data_hora = pagamento()
+                cadastrar_plano_aluno(id_aluno, id_plano, data_hora, metodo_pagamento)
+                break
+            except ValueError:
+                print("[ERRO]: Digite um número!")
+    else:
+        print("Nenhum plano cadastrado anteriormente.")
 
 def visualizar_plano(id_aluno: int):
-    planos = listar_plano_aluno(id_aluno)
-    for plano in planos:
-        print(f"Plano {plano[0]}\nNome: {plano[1]}\nDescrição: {plano[2]}\nTipo: {plano[3]}\nPreço: R$ {plano[4]}")
+    plano_aluno = listar_plano_aluno(id_aluno)
+    if len(plano_aluno) == 0:
+        print("Nenhum plano escolhido anteriormente.")
+    else:
+        planos = listar_plano_aluno(id_aluno)
+        for plano in planos:
+            print(f"Plano {plano[0]}\nNome: {plano[1]}\nDescrição: {plano[2]}\nTipo: {plano[3]}\nPreço: R$ {plano[4]}")
 
 def cancelar_plano(id_aluno):
     while True:
@@ -58,8 +64,9 @@ def cancelar_plano(id_aluno):
 
             while True:
                 resposta = input("Tem certeza que deseja cancelar seu plano? (s/n): ").lower()
+
                 if resposta == "s" or resposta == "sim":
-                    deletar_plano_aluno(id_plano)
+                    deletar_plano_aluno(id_plano, id_aluno)
                     break
                 elif resposta == "n" or resposta == "não" or resposta == "nao":
                     break

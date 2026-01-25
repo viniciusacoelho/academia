@@ -11,7 +11,7 @@ def pagamento():
         
         # metodo_pagamento = menu[opcao]
         match opcao:
-            case 1 | 2 | 3 | 4 | 5: metodo_pagamento = menu[opcao]
+            # case 1 | 2 | 3 | 4 | 5: metodo_pagamento = menu[opcao]
             case 1: metodo_pagamento = "Crédito"
             case 2: metodo_pagamento = "Débito"
             case 3: metodo_pagamento = "Pix" # TODO: 10% de desconto do PIX

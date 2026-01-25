@@ -1,15 +1,15 @@
 from limpar_tela.limpar_tela import limpar_tela
-from planos.menu_plano import menu_plano
+from administrador.login_administrador import login_administrador
 from alunos.menu_aluno import menu_aluno
-from treinos.menu_treino import menu_treino
 from instrutores.menu_instrutor import menu_instrutor
 
 while True:
     limpar_tela()
 
-    print("--------------------------------------------\n              Academia\n--------------------------------------------")
+    print("--------------------------------------------\n                  Academia\n--------------------------------------------")
+    print("Identifique-se\n")
 
-    menu = ["Planos", "Alunos", "Treinos", "Instrutores", "Sair"]
+    menu = ["Administrador", "Aluno", "Instrutor", "Sair"]
     for i in range(len(menu)):
         print(f"{i + 1} - {menu[i]}")
 
@@ -18,12 +18,15 @@ while True:
         opcao = int(input("Digite uma opção: "))
 
         match opcao:
-            case 1: menu_plano()
+            case 1: login_administrador()
             case 2: menu_aluno()
-            case 3: menu_treino()
-            case 4: menu_instrutor()
-            case 5:
+            case 3: menu_instrutor()
+            case 4:
                 print("Saindo...")
+                print("--------------------------------------------\n               Desenvolvedor\n--------------------------------------------")
+                print("LinkedIn: viniciusacoelho")
+                print("GitHub: viniciusacoelho")
+                print("--------------------------------------------")
                 break
             case _:
                 print("Opção inválida! Tente novamente.")
