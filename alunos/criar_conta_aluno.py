@@ -1,4 +1,5 @@
 from limpar_tela.limpar_tela import limpar_tela
+from alunos.validar_aluno import validar_nome, validar_email, validar_altura
 from alunos.crud_alunos import cadastrar_aluno
 from alunos.login_aluno import input_asterisco
 
@@ -6,14 +7,33 @@ def criar_conta():
     limpar_tela()
 
     print("\n--------------------------------------------\n            Criar Conta\n--------------------------------------------")
-
-    nome = input("Digite seu nome: ")
-    email = input("Digite seu e-mail: ")
+    
+    while True:
+        nome = input("Digite seu nome: ")
+        nome_valido = validar_nome(nome)
+        
+        if nome_valido:
+            break
+        else:
+            print("Nome invádlido. Tente novamente.")
+    
+    while True:
+        email = input("Digite seu e-mail: ")
+        email_valido = validar_email(email)
+        if email_valido:
+            break
+        else:
+            print("E-mail invádlido. Tente novamente.")
 
     while True:
         try:
             altura = float(input("Digite sua altura: "))
-            break
+            altura_valida = validar_altura(altura)
+            
+            if altura_valida:
+                break
+            else:
+                print("E-mail invádlido. Tente novamente.")
         except ValueError:
             print("[ERRO]: Digite um número!")
 
