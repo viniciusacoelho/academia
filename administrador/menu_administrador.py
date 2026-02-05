@@ -1,8 +1,8 @@
 from limpar_tela.limpar_tela import limpar_tela
 from planos.menu_plano import menu_plano
-from alunos.menu_aluno import menu_aluno
+from alunos.menu_aluno_administardor import menu_aluno_administrador
 from treinos.menu_treino import menu_treino
-from instrutores.menu_instrutor import menu_instrutor
+from instrutores.menu_instrutor_administrador import menu_instrutor_administrador
 
 def menu_administrador():
     while True:
@@ -20,9 +20,9 @@ def menu_administrador():
 
             match opcao:
                 case 1: menu_plano()
-                case 2: menu_aluno()
+                case 2: menu_aluno_administrador()
                 case 3: menu_treino()
-                case 4: menu_instrutor()
+                case 4: menu_instrutor_administrador()
                 case 5:
                     print("Voltando...")
                     break

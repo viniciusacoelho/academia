@@ -7,6 +7,7 @@ from alunos.crud_alunos import autenticar_aluno
 from alunos.painel_aluno import painel_aluno
 from alunos.validar_aluno import validar_nome, validar_email, validar_altura
 from msvcrt import getch
+from banco_de_dados.validar_unique import validar_unique
 
 def menu_aluno():
     while True:
@@ -46,15 +47,22 @@ def criar_conta_aluno():
         if nome_valido:
             break
         else:
-            print("Nome invádlido. Tente novamente.")
+            print("Nome inválido. Tente novamente.")
     
     while True:
         email = input("Digite seu e-mail: ")
+
         email_valido = validar_email(email)
         if email_valido:
             break
         else:
             print("E-mail invádlido. Tente novamente.")
+
+        email_unico = validar_unique(email, "alunos", 2)
+        if email_unico:
+            break
+        else:
+            print("E-mail já cadastrado anteriormente. Tente novamente.")
 
     while True:
         try:
@@ -85,6 +93,11 @@ def criar_conta_aluno():
         #     print("[ERRO]: Digite um número!")
 
     senha = input_asterisco("Digite sua senha: ")
+
+    while True:
+        confirmar_senha = input_asterisco("Confirme sua senha: ")
+        if confirmar_senha == senha:
+            break
 
     cadastrar_aluno(nome, email, altura, peso, data_nascimento, senha)
 

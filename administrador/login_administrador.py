@@ -13,5 +13,6 @@ def login_administrador():
         if senha_acesso == "1234":
             print("Login realizado com sucesso! Seja bem-vindo(a)!")
             menu_administrador()
+            break
         else:
             print("Senha de acesso inválida! Tente novamente.")

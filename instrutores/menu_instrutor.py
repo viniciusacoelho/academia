@@ -37,33 +37,38 @@ def menu_instrutor():
             print("[ERRO]: Digite um número!")
 
 def criar_conta_instrutor():
+    limpar_tela()
+
+    print("\n--------------------------------------------\n            Criar Conta\n--------------------------------------------")
+
+    nome = input("Digite seu nome: ")
+
     while True:
-        limpar_tela()
+        email = input("Digite seu e-mail: ")
+        email_invalido = validar_unique(email, "instrutores", 2)
 
-        print("\n--------------------------------------------\n            Criar Conta\n--------------------------------------------")
+        if email_invalido:
+            print("E-mail já cadastrado anteriormente! Tente outro e-mail.")
+        else:
+            break
 
-        nome = input("Digite seu nome: ")
+    while True:
+        cpf = input("Digite seu CPF: ")
+        try:
+            int(cpf)
+            break
+        except ValueError:
+            print("[ERRO]: Digite um número!")
+
+    senha = input_asterisco("Digite sua senha: ")
     
-        while True:
-            email = input("Digite seu e-mail: ")
-            email_invalido = validar_unique(email, "instrutores", 2)
-    
-            if email_invalido:
-                print("E-mail já cadastrado anteriormente! Tente outro e-mail.")
-            else:
-                break
+    while True:
+        confirmar_senha = input_asterisco("Confirme sua senha: ")
+        if confirmar_senha == senha:
+            break
 
-        while True:
-            cpf = input("Digite seu CPF: ")
-            try:
-                int(cpf)
-                break
-            except ValueError:
-                print("[ERRO]: Digite um número!")
 
-        senha = input_asterisco("Digite sua senha: ")
-
-        cadastrar_instrutor(nome, email, cpf, senha)
+    cadastrar_instrutor(nome, email, cpf, senha)
 
 def login_instrutor():
     while True:
