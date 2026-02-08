@@ -23,17 +23,9 @@ def menu_plano():
                 case 2: 
                     imprimir_planos()
                     print("Planos listados com sucesso!")
-                case 3:
-                    nome = input("Digite o nome do plano para buscar: ")
-                    plano_busca = buscar_plano(nome)
-
-                    for plano in plano_busca:
-                        print(f"Plano {plano[0]}\nNome: {plano[1]}\nDescrição: {plano[2]}\nTipo: {plano[3]}\nPreço: R$ {plano[4]}")
+                case 3: procurar_plano()
                 case 4: atualizar_planos()
-                case 5:
-                    imprimir_planos()
-                    id_plano = int(input("Digite o ID do plano para deletar: "))
-                    deletar_plano(id_plano)
+                case 5: excluir_plano()
                 case 6:
                     print("Voltando...")
                     break
@@ -48,7 +40,10 @@ def registrar_plano():
 
         print("--------------------------------------------\n            Cadastrar Plano\n--------------------------------------------")
 
+        # TODO: Talvez fazer que o usuário não pode cadastrar um plano com o mesmo nome que ele já cadastrou anteriormente
         nome = input("Digite o nome do plano: ")
+
+        # TODO: Validar se a descrição for muito grande ou muito pequena
         descricao = input("Digite a descrição do plano: ")
 
         menu = ["Mensal", "Semestral", "Anual"]
@@ -72,7 +67,7 @@ def registrar_plano():
                     break
                 case _:
                     print("Opção inválida!")
-            
+
         except Exception as e:
             print("[ERRO]: Digite um número!")
 
@@ -87,11 +82,17 @@ def registrar_plano():
 
 def imprimir_planos():
     planos = listar_planos()
-    # print("Planos listados com sucesso!")
 
     for plano in planos:
         print(f"Plano {plano[0]}\nNome: {plano[1]}\nDescrição: {plano[2]}\nTipo: {plano[3]}\nPreço: R$ {plano[4]}")
         print("--------------------------------------------")
+
+def procurar_plano():
+    nome = input("Digite o nome do plano para buscar: ")
+    plano_busca = buscar_plano(nome)
+
+    for plano in plano_busca:
+        print(f"Plano {plano[0]}\nNome: {plano[1]}\nDescrição: {plano[2]}\nTipo: {plano[3]}\nPreço: R$ {plano[4]}")
 
 def atualizar_planos():
     id_plano = selecionar_plano()
@@ -130,6 +131,7 @@ def atualizar_planos():
                                 case 1:
                                     tipo = "Mensal"
                                     atualizar_plano(id_plano, tipo, "tipo", "Tipo")
+                                    # atualizar_plano(id_plano, "Mensal", "tipo", "Tipo")
                                     break
                                 case 2:
                                     tipo = "Mensal"
@@ -175,9 +177,47 @@ def selecionar_plano():
 
         try:
             id_plano = int(input("Digite o ID do plano para atualizar: "))
-            return id_plano
+
+            plano_identificado = identificar_plano(id_plano)
+            if plano_identificado:
+                atualizar_plano(id_plano)
+                break
+            else:
+                print("ID do plano não cadastrado anteriormente. Tente novamente.")
+
+            # planos = listar_planos()
+            # for plano in planos:
+            #     if id_plano == plano[0]:
+            #         return id_plano
+            # else:
+            #     print("ID do plano não cadastrado anteriormente. Tente novamente.")
+
         except ValueError:
             print("[ERRO]: Digite um número!")
+
+def excluir_plano():
+    while True:
+        imprimir_planos()
+        
+        try:
+            id_plano = int(input("Digite o ID do plano para deletar: "))
+            plano_identificado = identificar_plano(id_plano)
+            
+            if plano_identificado:
+                deletar_plano(id_plano)
+                break
+            else:
+                print("ID do plano não cadastrado anteriormente. Tente novamente.")
+
+        except ValueError:
+            print("[ERRO]: Digite um número!")  
+        
+def identificar_plano(id_plano: int):
+    planos = listar_planos()
+    for plano in planos:
+        if id_plano == plano[0]:
+            return True
+    return False
 
 """
     Planos de academia variam por duração (mensal, semestral, anual), frequência 

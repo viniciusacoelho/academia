@@ -17,7 +17,7 @@ def listar_treinos() -> list | None:
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT * FROM treinos ORDER BY id_treino;")
+        cursor.execute("SELECT * FROM treinos ORDER BY id_treino ASC;")
         conexao.commit()
         # print("treinos listados com sucesso!")
         return cursor.fetchall()
@@ -41,7 +41,7 @@ def buscar_treino(nome: str):
         cursor.close()
         conexao.close()
 
-def atualizar_treino(id_treino, parametro_atributo: str | int, atributo: str):
+def atualizar_treino(id_treino, parametro_atributo: str | int, atributo: str, nome_atributo: str):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
@@ -72,7 +72,7 @@ def listar_treino_aluno(id_aluno: int) -> list | None:
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT * FROM treinos WHERE id_aluno = %s ORDER BY id_treino ORDER BY id_treino;", [id_aluno])    
+        cursor.execute("SELECT * FROM treinos WHERE id_aluno = %s ORDER BY id_treino ASC;", [id_aluno])    
         return cursor.fetchall()
     except Exception as e:
         print(f"[ERRO]: Falha ao visualizar treino de aluno: {e}")

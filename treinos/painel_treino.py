@@ -1,5 +1,5 @@
 from limpar_tela.limpar_tela import limpar_tela
-from treinos.crud_treinos import listar_treino_aluno, atualizar_treino_aluno
+from treinos.crud_treinos import listar_treino_aluno, atualizar_treino_aluno, listar_treinos
 
 def painel_treino(id_aluno: int):
     while True:
@@ -18,10 +18,10 @@ def painel_treino(id_aluno: int):
             opcao = int(input("Digite uma opção: "))
 
             match opcao:
-                case 1: editar_treino(id_aluno)
-                case 2: visulizar_treinos(id_aluno)
-                case 3: pass    # TODO: 3ª opção de treino
-                case 4:
+                case 1: visulizar_treinos(id_aluno)
+                case 2: editar_treino(id_aluno)
+                # case 3: pass    # TODO: 3ª opção de treino
+                case 3:
                     print("Voltando...")
                     break
                 case _:
@@ -39,12 +39,21 @@ def visulizar_treinos(id_aluno: int):
 def editar_treino(id_aluno: int):
     while True:
         visulizar_treinos(id_aluno)
+
         try:
             print("--------------------------------------------")
             id_treino = int(input("Digite o ID do treino para editar: "))
-            nome_exercicio = input("Digite o nome do exercício para editar: ")
-            editar_treino_aluno(id_aluno, id_treino, nome_exercicio)
-            break
+
+            treinos = listar_treinos()
+            for treino in treinos:
+                if id_treino == treino[0]:
+                    nome_exercicio = input("Digite o nome do exercício para editar: ")
+                    editar_treino_aluno(id_aluno, id_treino, nome_exercicio)
+                    break
+            else:
+                print("ID inválido! Tente novamente.")
+                print("--------------------------------------------")
+
         except ValueError:
             print("[ERRO]: Digite um número!")
 
@@ -65,24 +74,40 @@ def editar_treino_aluno(id_aluno: int, id_treino: int, nome_exercicio: str):
             match opcao:
                 case 1:
                     novo_nome = input("Digite o novo nome do exercício: ")
-                    atualizar_treino_aluno(id_aluno, id_treino, nome_exercicio, novo_nome, "nome_exercicio")
+                    atualizar_treino_aluno(id_aluno, id_treino, nome_exercicio, novo_nome, "nome_exercicio", "Nome do exerício")
                     break
                 case 2:
-                    novo_peso = float(input(f"Digite o novo peso do exercício: "))
-                    atualizar_treino_aluno(id_aluno, id_treino, nome_exercicio, novo_peso, "peso")
-                    break
+                    while True:
+                        try:
+                            novo_peso = float(input(f"Digite o novo peso do exercício: "))
+                            atualizar_treino_aluno(id_aluno, id_treino, nome_exercicio, novo_peso, "peso", "Peso")
+                            break
+                        except ValueError:
+                            print("[ERRO]: Digite um número!")
                 case 3:
-                    novo_numero_repeticoes = int(input(f"Digite o novo número de repetições do exercício: "))
-                    atualizar_treino_aluno(id_aluno, id_treino, nome_exercicio, novo_numero_repeticoes, "repeticoes")
-                    break
+                    while True:
+                        try:
+                            novo_numero_repeticoes = int(input(f"Digite o novo número de repetições do exercício: "))
+                            atualizar_treino_aluno(id_aluno, id_treino, nome_exercicio, novo_numero_repeticoes, "repeticoes", "Repetições")
+                            break
+                        except ValueError:
+                            print("[ERRO]: Digite um número!")
                 case 4:
-                    novo_numero_series = int(input(f"Digite a nova quantidade de séries do exercício: "))
-                    atualizar_treino_aluno(id_aluno, id_treino, nome_exercicio, novo_numero_series, "series")
-                    break
+                    while True:
+                        try:
+                            novo_numero_series = int(input(f"Digite a nova quantidade de séries do exercício: "))
+                            atualizar_treino_aluno(id_aluno, id_treino, nome_exercicio, novo_numero_series, "series", "Séries")
+                            break
+                        except ValueError:
+                            print("[ERRO]: Digite um número!")
                 case 5:
-                    novo_tempo_descanso = float(input(f"Digite o novo tempo de descanso do exercício: "))
-                    atualizar_treino_aluno(id_aluno, id_treino, nome_exercicio, novo_tempo_descanso, "tempo_descanso")
-                    break
+                    while True:
+                        try:
+                            novo_tempo_descanso = float(input(f"Digite o novo tempo de descanso do exercício: "))
+                            atualizar_treino_aluno(id_aluno, id_treino, nome_exercicio, novo_tempo_descanso, "tempo_descanso", "Tempo de Descanço")
+                            break
+                        except ValueError:
+                            print("[ERRO]: Digite um número!")
                 case 6:
                     print("Voltando...")
                     break

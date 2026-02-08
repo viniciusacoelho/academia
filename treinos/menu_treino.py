@@ -89,13 +89,21 @@ def imprimir_treinos():
 
 def procurar_treino():
     nome = input("Digite o nome do treino para buscar: ")
-    buscar_treino(nome)
+    treino_busca = buscar_treino(nome)
 
-    treinos = listar_treinos()
-    for treino in treinos:
+    # if not nome:
+    #     print("Nome do treino inválido! Tente novamente.")
+
+    for treino in treino_busca:
         print(f"Treino {treino[0]}\nTipo: {treino[1]}\nExercícios: {treino[2]}\nDescrição: {treino[3]}\nTipo: {treino[4]}\nPreço: {treino[5]}")
 
 def remover_treino():
+    while True:
+        treino_aluno = listar_treinos()
+    
+        if len(treino_aluno) == 0:
+            print("Nenhum treino cadastrado anteriormente.")
+            break
     listar_treinos()
     id_treino = int(input("Digite o ID do treino para deletar: "))
     deletar_treino(id_treino)

@@ -107,3 +107,22 @@ def input_com_asterisco(mensagem=""):
 
 senha = input_com_asterisco("Digite sua senha: ")
 print("Senha capturada!")
+
+# TODO: ->
+# from banco_de_dados.criar_conexao import criar_conexao
+
+# def listar_senha_aluno(id_aluno: int) -> tuple | None:
+#     try:
+#         conexao = criar_conexao()
+#         cursor = conexao.cursor()
+#         cursor.execute("SELECT senha FROM alunos WHERE id_aluno = %s;", [id_aluno])
+#         return cursor.fetchone()
+#     except Exception as e:
+#         print(f"[ERRO]: Falha ao listar senha de aluno: {e}")
+#         return None
+#     finally:
+#         cursor.close()
+#         conexao.close()
+
+# senha = listar_senha_aluno(1)
+# print(len(senha[0]))

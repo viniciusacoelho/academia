@@ -68,7 +68,7 @@ def deletar_plano(id_plano: int):
         cursor.close()
         conexao.close()
 
-def cadastrar_plano_aluno(id_aluno: int, id_plano: int, data_hora: str, metodo_pagamento: str):
+def cadastrar_plano_aluno(id_aluno: int, id_plano: int, metodo_pagamento: str, data_hora: str):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
