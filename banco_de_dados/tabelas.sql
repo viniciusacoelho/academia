@@ -2,7 +2,9 @@ DROP TABLE planos;
 DROP TABLE alunos;
 DROP TABLE treinos;
 DROP TABLE instrutores;
+DROP TABLE exercicios;
 DROP TABLE plano_aluno;
+DROP TABLE treino_exercicio;
 
 CREATE TABLE planos(
 	id_plano SERIAL PRIMARY KEY,
@@ -40,27 +42,43 @@ SELECT * FROM instrutores ORDER BY id_instrutor ASC;
 CREATE TABLE treinos(
 	id_treino SERIAL PRIMARY KEY,
 	tipo VARCHAR(255) NOT NULL,
-	nome_exercicio VARCHAR(255) NOT NULL,
-	peso INT NOT NULL,
-	repeticoes INT NOT NULL,
-	series INT NOT NULL,
-	tempo_descanso VARCHAR(255) NOT NULL,
 	id_aluno INTEGER NOT NULL,
 	id_instrutor INTEGER NOT NULL,
-	FOREIGN KEY (id_aluno) REFERENCES alunos (id_aluno),
-	FOREIGN KEY (id_instrutor) REFERENCES instrutores (id_instrutor)
+	FOREIGN KEY(id_aluno) REFERENCES alunos(id_aluno),
+	FOREIGN KEY(id_instrutor) REFERENCES instrutores(id_instrutor)
 );
 
 SELECT * FROM treinos ORDER BY id_treino ASC;
+
+CREATE TABLE exercicios(
+	id_exercicio SERIAL PRIMARY KEY,
+	nome VARCHAR(255) NOT NULL,
+	quantidade_series INT NOT NULL,
+	numero_repeticoes INT NOT NULL,
+	peso INT NOT NULL,
+	tempo_descanso VARCHAR(255) NOT NULL
+);
+
+SELECT * FROM exercicios ORDER BY id_exercicio ASC;
+
+---
 
 CREATE TABLE plano_aluno(
 	id_plano INTEGER NOT NULL,
 	id_aluno INTEGER NOT NULL,
 	metodo_pagamento VARCHAR(255) NOT NULL,
 	data_hora TIMESTAMP NOT NULL,
-	PRIMARY KEY (id_plano, id_aluno),
-	FOREIGN KEY (id_plano) REFERENCES planos (id_plano),
-	FOREIGN KEY (id_aluno) REFERENCES alunos (id_aluno)
+	PRIMARY KEY(id_plano, id_aluno),
+	FOREIGN KEY(id_plano) REFERENCES planos(id_plano),
+	FOREIGN KEY(id_aluno) REFERENCES alunos(id_aluno)
+);
+
+CREATE TABLE treino_exercicio(
+	id_treino INTEGER NOT NULL,
+	id_exercicio INTEGER NOT NULL,
+	PRIMARY KEY(id_treino, id_exercicio),
+	FOREIGN KEY(id_treino) REFERENCES treinos(id_treino).
+	FOREIGN KEY(id_exercicio) REFERENCES exercicios(id_exercicio).
 );
 
 SELECT * FROM plano_aluno ORDER BY id_plano ASC;

@@ -3,6 +3,7 @@ from limpar_tela.limpar_tela import limpar_tela
 from planos.crud_planos import listar_planos, buscar_plano, atualizar_plano, deletar_plano
 # from planos.atualizar_plano import atualizar_plano
 from planos.crud_planos import cadastrar_plano
+from planos.validar_plano import validar_nome, validar_descricao, validar_preco
 
 def menu_plano():
     while True:    
@@ -41,10 +42,22 @@ def registrar_plano():
         print("--------------------------------------------\n            Cadastrar Plano\n--------------------------------------------")
 
         # TODO: Talvez fazer que o usuário não pode cadastrar um plano com o mesmo nome que ele já cadastrou anteriormente
-        nome = input("Digite o nome do plano: ")
+        while True:
+            nome = input("Digite o nome do plano: ")
+            nome_validado = validar_nome(nome)
+            if nome_validado:
+                break
+            else:
+                print("Nome muito pequeno! Tente novamente.")
 
         # TODO: Validar se a descrição for muito grande ou muito pequena
-        descricao = input("Digite a descrição do plano: ")
+        while True:
+            descricao = input("Digite a descrição do plano: ")
+            descricao_validada = validar_descricao(descricao)
+            if descricao_validada:
+                break
+            else:
+                print("Descrição muito grande! Tente novamente.")
 
         menu = ["Mensal", "Semestral", "Anual"]
         print("--------------------------------------------")
@@ -74,7 +87,11 @@ def registrar_plano():
     while True:
         try:
             preco = float(input("Digite o preço do plano: R$ "))
-            break
+            preco_validado = validar_preco(preco)
+            if preco_validado:
+                break
+            else:
+                print("Preco inválido! Tente novamente.")
         except ValueError:
             print("[ERRO]: Digite um número!")
 
@@ -118,8 +135,8 @@ def atualizar_planos():
                         descricao = input("Digite a nova descrição do plano: ")
                         atualizar_plano(id_plano, descricao, "descricao", "Descrição")
                     case 3:
-                        menu = ["Mensal", "Semestral", "Anual"]
                         print("--------------------------------------------")
+                        menu = ["Mensal", "Semestral", "Anual"]
                         for i in range(len(menu)):
                             print(f"{i + 1} - {menu[i]}")
 
@@ -129,21 +146,13 @@ def atualizar_planos():
 
                             match id_novo_tipo:
                                 case 1:
-                                    tipo = "Mensal"
-                                    atualizar_plano(id_plano, tipo, "tipo", "Tipo")
-                                    # atualizar_plano(id_plano, "Mensal", "tipo", "Tipo")
+                                    atualizar_plano(id_plano, "Mensal", "tipo", "Tipo")
                                     break
                                 case 2:
-                                    tipo = "Mensal"
-                                    atualizar_plano(id_plano, tipo, "tipo", "Tipo")
+                                    atualizar_plano(id_plano, "Semestral", "tipo", "Tipo")
                                     break
                                 case 3:
-                                    tipo = "Semestral"
-                                    atualizar_plano(id_plano, tipo, "tipo", "Tipo")
-                                    break
-                                case 4:
-                                    tipo = "Anual"
-                                    atualizar_plano(id_plano, tipo, "tipo", "Tipo")
+                                    atualizar_plano(id_plano, "Anual", "tipo", "Tipo")
                                     break
                                 case _:
                                     print("Opção inválida! Tente novamente.")
@@ -168,12 +177,7 @@ def atualizar_planos():
 
 def selecionar_plano():
     while True:
-        planos = listar_planos()
-        
-        print("--------------------------------------------")
-        for plano in planos:
-            print(f"Plano {plano[0]}\nNome: {plano[1]}\nDescrição: {plano[2]}\nTipo: {plano[3]}\nPreço: R$ {plano[4]}")
-            print("--------------------------------------------")
+        imprimir_planos()
 
         try:
             id_plano = int(input("Digite o ID do plano para atualizar: "))
@@ -198,7 +202,7 @@ def selecionar_plano():
 def excluir_plano():
     while True:
         imprimir_planos()
-        
+
         try:
             id_plano = int(input("Digite o ID do plano para deletar: "))
             plano_identificado = identificar_plano(id_plano)
@@ -211,7 +215,7 @@ def excluir_plano():
 
         except ValueError:
             print("[ERRO]: Digite um número!")  
-        
+
 def identificar_plano(id_plano: int):
     planos = listar_planos()
     for plano in planos:

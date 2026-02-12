@@ -56,7 +56,7 @@ def criar_conta_aluno():
         if email_valido:
             break
         else:
-            print("E-mail invádlido. Tente novamente.")
+            print("E-mail inválido. Tente novamente.")
 
         email_unico = validar_unique(email, "alunos", 2)
         if email_unico:

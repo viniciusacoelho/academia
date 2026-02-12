@@ -22,8 +22,8 @@ while True:
             case 1: login_administrador()
             case 2: menu_aluno()
             case 3: menu_instrutor()
-            case 4: menu_treino()
-            case 5:
+            # case 4: menu_treino()
+            case 4:
                 print("Saindo...")
                 print("--------------------------------------------\n               Desenvolvedor\n--------------------------------------------")
                 print("LinkedIn: viniciusacoelho")

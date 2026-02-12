@@ -2,6 +2,7 @@ from limpar_tela.limpar_tela import limpar_tela
 # from treinos.registrar_treino import registrar_treino
 from treinos.crud_treinos import listar_treinos, buscar_treino, atualizar_treino, deletar_treino
 from treinos.crud_treinos import cadastrar_treino
+from treinos.validar_treino import validar_quantidade_exercicios
 
 def menu_treino():
     while True:
@@ -34,11 +35,11 @@ def menu_treino():
 
 
 def registrar_treino(id_instrutor: int, id_aluno: int):
+    limpar_tela()
+
+    print("--------------------------------------------\n              Cadastrar Treino\n--------------------------------------------")
+
     while True:
-        limpar_tela()
-
-        print("--------------------------------------------\n              Cadastrar Treino\n--------------------------------------------")
-
         menu = ["Empurrar", "Puxar", "Inferior", "Inferior Intermediário"]
         for i in range(len(menu)):
             print(f"{i + 1} - {menu[i]}")
@@ -65,7 +66,13 @@ def registrar_treino(id_instrutor: int, id_aluno: int):
         except ValueError:
             print("[ERRO]: Digite um número!")
 
-    quantidade_exercicios = int(input("Digite a quantidade de exercícios: "))
+    while True:
+        quantidade_exercicios = int(input("Digite a quantidade de exercícios: "))
+        quantidade_exercicios_validada = validar_quantidade_exercicios(quantidade_exercicios)
+        if quantidade_exercicios_validada:
+            break
+        else:
+            print("Quantidadde de exercícios inválida! Tente novamente.")
 
     for i in range(quantidade_exercicios):
         nome_exercicio = input(f"Digite o nome do exercício {i + 1}: ")

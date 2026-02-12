@@ -5,6 +5,7 @@ from alunos.crud_alunos import listar_alunos
 from treinos.registrar_treino import registrar_treino
 from treinos.painel_treino import editar_treino
 from alunos.painel_aluno import excluir_conta
+from exercicios.menu_exercicio import menu_exercicio
 
 def painel_instrutor(instrutor_autenticado: list):
     while True:
@@ -12,7 +13,7 @@ def painel_instrutor(instrutor_autenticado: list):
 
         print("\n--------------------------------------------\n            Painel Treino\n--------------------------------------------")
 
-        menu = ["Criar Treino", "Editar Treino", "Visualizar Alunos", "Atualizar Cadastro", "Excluir Conta", "Voltar"]
+        menu = ["Criar Treino", "Editar Treino", "Criar Exercício", "Editar Exercício", "Visualizar Alunos", "Atualizar Cadastro", "Excluir Conta", "Voltar"]
         # TODO: Funcionalidade de Adicionar/Remover Exercício
         # menu = ["Criar Treino", "Editar Treino", "Adicionar Exercício", "Visualizar Alunos", "Atualizar Cadastro", "Excluir Conta", "Voltar"]
         for i in range(len(menu)):
