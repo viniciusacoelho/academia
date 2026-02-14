@@ -58,9 +58,9 @@ def deletar_exercicio(id_exercicio: int):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute(f"DELETE FROM exercicios WHERE id_exercicio = %s;", [id_exercicio])    
+        cursor.execute("DELETE FROM exercicios WHERE id_exercicio = %s;", [id_exercicio])    
         conexao.commit()
-        # print(f"exercicio {nome} deletado com sucesso!")
+        # print(f"Exercício {nome} deletado com sucesso!")
         print("Exercício deletado com sucesso!")
     except Exception as e:
         print(f"[ERRO]: Falha ao deletar exercício: {e}")
@@ -68,36 +68,36 @@ def deletar_exercicio(id_exercicio: int):
         cursor.close()
         conexao.close()
 
-def cadastrar_exercicio_aluno(id_aluno: int, id_exercicio: int, metodo_pagamento: str, data_hora: str):
+def cadastrar_exercicio_treino(id_exercicio: int, id_treino: int):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("INSERT INTO exercicio_aluno (id_exercicio, id_aluno, metodo_pagamento, data_hora) VALUES (%s, %s, %s, %s);", [id_exercicio, id_aluno, metodo_pagamento, data_hora])    
+        cursor.execute("INSERT INTO treino_exercicio (id_treino, id_exercicio) VALUES (%s, %s) WHERE id_treino = %s;", [id_treino, id_exercicio, id_treino])    
         conexao.commit()
         print("Aluno cadastrado com sucesso!")
     except Exception as e:
-        print(f"[ERRO]: Falha ao cadastrar aluno: {e}")
+        print(f"[ERRO]: Falha ao cadastrar exercício do treino: {e}")
     finally:
         cursor.close()
         conexao.close()
 
-def listar_exercicio_aluno(id_aluno: int) -> list | None:
+def listar_exercicio_treino(id_treino: int) -> list | None:
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT p.id_exercicio, p.nome, p.descricao, p.tipo, p.preco FROM exercicio_aluno pa JOIN exercicios p ON p.id_exercicio = pa.id_exercicio WHERE id_aluno = %s ORDER BY id_exercicio;", [id_aluno])
+        cursor.execute("SELECT t.tipo, e.nome, e.quantidade_series, e.numero_repeticoes, e.peso, e.tempo_descanso FROM treino_exercicio te JOIN exercicios e ON e.id_exercicio = te.id_exercicio JOIN treinos t ON t.id_treino = te.id_treino WHERE id_treino = %s ORDER BY id_exercicio;", [id_treino])
         return cursor.fetchall()
     except Exception as e:
-        print(f"[ERRO]: Falha ao cadastrar aluno: {e}")
+        print(f"[ERRO]: Falha ao listar exercícios do treino: {e}")
     finally:
         cursor.close()
         conexao.close()
 
-def deletar_exercicio_aluno(id_exercicio: int, id_aluno: int):
+def deletar_exercicio_aluno(id_treino: int, id_exercicio: int):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute(f"DELETE FROM exercicio_aluno WHERE id_exercicio = %s AND id_aluno = %s;", [id_exercicio, id_aluno])    
+        cursor.execute("DELETE FROM treino_exercicio WHERE id_treino = %s AND id_exercicio = %s;", [id_treino, id_exercicio])    
         conexao.commit()
         # print(f"exercicio {nome} deletado com sucesso!")
         print("Exercício deletado com sucesso!")

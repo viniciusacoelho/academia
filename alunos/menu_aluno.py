@@ -5,7 +5,7 @@ from alunos.crud_alunos import cadastrar_aluno
 from alunos.login_aluno import input_asterisco
 from alunos.crud_alunos import autenticar_aluno
 from alunos.painel_aluno import painel_aluno
-from alunos.validar_aluno import validar_nome, validar_email, validar_altura
+from alunos.validar_aluno import validar_nome, validar_email, validar_altura, validar_peso, validar_data_nascimento, formartar_data_nascimento, validar_senha
 from msvcrt import getch
 from banco_de_dados.validar_unique import validar_unique
 
@@ -84,16 +84,29 @@ def criar_conta_aluno():
         except ValueError:
             print("[ERRO]: Digite um número!")
 
-    data_nascimento = input("Digite sua data de nascimento: ")
-    # while True:
-        # try:
-        #     data_nascimento = int(input("Digite sua data de nascimento: "))
-        #     break
-        # except ValueError:
-        #     print("[ERRO]: Digite um número!")
+    while True:
+        data_nascimento = input("Digite sua data de nascimento: ")
 
-    senha = input_asterisco("Digite sua senha: ")
+        try:
+            int(data_nascimento)
+            data_nascimento_valida = validar_data_nascimento(data_nascimento)
 
+            if data_nascimento_valida:
+                data_nascimento = formartar_data_nascimento(data_nascimento)
+                break
+            else:
+                print("Data de nascimento inválida. Tente novamente.")
+        except ValueError:
+            print("[ERRO]: Digite um número!")
+
+    while True:
+        senha = input_asterisco("Digite sua senha: ")
+        senha_valida = validar_senha(senha)
+        if senha_valida:
+            break
+        else:
+            print("Senha inválida. Tente novamente.")
+    
     while True:
         confirmar_senha = input_asterisco("Confirme sua senha: ")
         if confirmar_senha == senha:

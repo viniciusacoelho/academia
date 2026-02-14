@@ -2,7 +2,6 @@ from limpar_tela.limpar_tela import limpar_tela
 from administrador.login_administrador import login_administrador
 from alunos.menu_aluno import menu_aluno
 from instrutores.menu_instrutor import menu_instrutor
-from treinos.menu_treino import menu_treino
 
 while True:
     limpar_tela()
@@ -22,7 +21,6 @@ while True:
             case 1: login_administrador()
             case 2: menu_aluno()
             case 3: menu_instrutor()
-            # case 4: menu_treino()
             case 4:
                 print("Saindo...")
                 print("--------------------------------------------\n               Desenvolvedor\n--------------------------------------------")

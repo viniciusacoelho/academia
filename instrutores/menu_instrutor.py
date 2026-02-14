@@ -10,6 +10,8 @@ from instrutores.painel_instrutor import painel_instrutor
 
 from banco_de_dados.validar_unique import validar_unique
 
+from instrutores.validar_instrutor import validar_nome, validar_email, validar_cpf, formatar_cpf, validar_senha
+
 def menu_instrutor():
     while True:
         limpar_tela()
@@ -41,32 +43,60 @@ def criar_conta_instrutor():
 
     print("\n--------------------------------------------\n            Criar Conta\n--------------------------------------------")
 
-    nome = input("Digite seu nome: ")
+    while True:
+        nome = input("Digite seu nome: ")
+        nome_valido = validar_nome(nome)
+
+        if nome_valido:
+            break
+        else:
+            print("Nome inválido. Tente novamente.")
 
     while True:
         email = input("Digite seu e-mail: ")
-        email_invalido = validar_unique(email, "instrutores", 2)
 
-        if email_invalido:
-            print("E-mail já cadastrado anteriormente! Tente outro e-mail.")
-        else:
+        email_valido = validar_email(email)
+
+        if email_valido:
             break
+        else:
+            print("E-mail inválido. Tente novamente.")
+
+        email_unico = validar_unique(email, "instrutores", 2)
+
+        if email_unico:
+            break
+        else:
+            print("E-mail já cadastrado anteriormente! Tente outro e-mail.")
 
     while True:
         cpf = input("Digite seu CPF: ")
+
         try:
             int(cpf)
-            break
+
+            cpf_valido = validar_cpf(cpf)
+            if cpf_valido:
+                cpf = formatar_cpf(cpf)
+                break
+            else:
+                print("CPF inválido. Tente novamente.")
         except ValueError:
             print("[ERRO]: Digite um número!")
 
-    senha = input_asterisco("Digite sua senha: ")
-    
+
+    while True:
+        senha = input_asterisco("Digite sua senha: ")
+        senha_valida = validar_senha(senha)
+        if senha_valida:
+            break
+        else:
+            print("Senha inválida. Tente novamente.")
+
     while True:
         confirmar_senha = input_asterisco("Confirme sua senha: ")
         if confirmar_senha == senha:
             break
-
 
     cadastrar_instrutor(nome, email, cpf, senha)
 

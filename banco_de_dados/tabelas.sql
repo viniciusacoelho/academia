@@ -77,8 +77,8 @@ CREATE TABLE treino_exercicio(
 	id_treino INTEGER NOT NULL,
 	id_exercicio INTEGER NOT NULL,
 	PRIMARY KEY(id_treino, id_exercicio),
-	FOREIGN KEY(id_treino) REFERENCES treinos(id_treino).
-	FOREIGN KEY(id_exercicio) REFERENCES exercicios(id_exercicio).
+	FOREIGN KEY(id_treino) REFERENCES treinos(id_treino),
+	FOREIGN KEY(id_exercicio) REFERENCES exercicios(id_exercicio)
 );
 
 SELECT * FROM plano_aluno ORDER BY id_plano ASC;
@@ -102,3 +102,7 @@ JOIN instrutores i ON i.id_instrutor= t.id_instrutor
 ORDER BY t.id_treino ASC; 
 
 SELECT senha FROM alunos WHERE id_aluno = 1;
+
+SELECT t.tipo, e.nome, e.quantidade_series, e.numero_repeticoes, e.peso, e.tempo_descanso FROM treino_exercicio te 
+JOIN exercicios e ON e.id_exercicio = te.id_exercicio 
+JOIN treinos t ON t.id_treino = te.id_treino;

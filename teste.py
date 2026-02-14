@@ -126,3 +126,15 @@ print("Senha capturada!")
 
 # senha = listar_senha_aluno(1)
 # print(len(senha[0]))
+
+
+def validar_senha():
+    # validar_numeros(senha)
+    # validar_numeros(senha)
+    # validar_numeros(senha)
+    # validar_numeros(senha)
+    # validar_numeros(senha)
+    pass
+
+senha = input("Senha: ")
+
