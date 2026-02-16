@@ -114,3 +114,25 @@ def remover_treino():
     listar_treinos()
     id_treino = int(input("Digite o ID do treino para deletar: "))
     deletar_treino(id_treino)
+
+# Treinos de academia eficientes combinam musculação (treino de força) com cardio, organizados por divisões como ABC (peito/ombro/tríceps, costas/bíceps, pernas) ou ABCDE para níveis avançados, priorizando exercícios compostos como agachamentos e supinos para maior ganho muscular. A frequência ideal varia entre 3 a 5 dias por semana, incluindo períodos de descanso para recuperação. 
+# Estruturas de Treino Comuns
+# Iniciante (Full Body): Treinar o corpo inteiro em uma única sessão, 3 vezes na semana, focando em exercícios compostos e adaptação.
+# Intermediário/Avançado (ABC):
+# A (Peito, Ombro, Tríceps): Supino reto, supino inclinado, desenvolvimento, elevação lateral, pulley, rosca testa.
+# B (Costas, Bíceps, Abdômen): Pulley frente, remada fechada, remada aberta, rosca scott/direta.
+# C (Pernas): Agachamento, leg press, cadeira extensora, mesa flexora, panturrilha.
+# Avançado (ABCDE): Divisão de 5 dias focada em um grupo muscular por dia (ex: Peito, Costas, Ombros, Pernas, Braços). 
+# Dicas para Melhores Resultados
+# Prioridade: Exercícios multiarticulares (que usam várias articulações) vêm antes dos isolados.
+# Cardio: 20-30 minutos de cardio (esteira, elíptico) ou HIIT (15 min) ajudam na queima calórica e condicionamento.
+# Execução: Manter o tronco firme, abdômen contraído e técnica correta, especialmente em exercícios de ombro e agachamentos.
+# Volume: Geralmente 3 a 4 séries de 10-15 repetições com carga moderada a alta. 
+# Exemplo de Rotina Semanal
+# Segunda (Sup): Peito, Ombro, Tríceps + 20 min Cardio
+# Terça (Inf): Pernas Completo + 15 min HIIT
+# Quarta: Descanso Ativo (cardio leve)
+# Quinta (Sup): Costas, Bíceps + 20 min Cardio
+# Sexta (Inf): Pernas Foco em Glúteo/Posterior
+# Sábado/Domingo: Descanso 
+# Para emagrecimento, aumentar a intensidade e diminuir o tempo de descanso entre as séries é recomendado, enquanto para ganho de massa, focar na progressão de cargas é essencial. 

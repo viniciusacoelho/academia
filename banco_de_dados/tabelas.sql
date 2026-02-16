@@ -41,11 +41,12 @@ SELECT * FROM instrutores ORDER BY id_instrutor ASC;
 
 CREATE TABLE treinos(
 	id_treino SERIAL PRIMARY KEY,
+	nome VARCHAR(255) NOT NULL,
 	tipo VARCHAR(255) NOT NULL,
-	id_aluno INTEGER NOT NULL,
 	id_instrutor INTEGER NOT NULL,
-	FOREIGN KEY(id_aluno) REFERENCES alunos(id_aluno),
-	FOREIGN KEY(id_instrutor) REFERENCES instrutores(id_instrutor)
+	id_aluno INTEGER NOT NULL,
+	FOREIGN KEY(id_instrutor) REFERENCES instrutores(id_instrutor),
+	FOREIGN KEY(id_aluno) REFERENCES alunos(id_aluno)
 );
 
 SELECT * FROM treinos ORDER BY id_treino ASC;
@@ -73,6 +74,8 @@ CREATE TABLE plano_aluno(
 	FOREIGN KEY(id_aluno) REFERENCES alunos(id_aluno)
 );
 
+SELECT * FROM plano_aluno ORDER BY id_plano ASC;
+
 CREATE TABLE treino_exercicio(
 	id_treino INTEGER NOT NULL,
 	id_exercicio INTEGER NOT NULL,
@@ -81,11 +84,11 @@ CREATE TABLE treino_exercicio(
 	FOREIGN KEY(id_exercicio) REFERENCES exercicios(id_exercicio)
 );
 
-SELECT * FROM plano_aluno ORDER BY id_plano ASC;
+SELECT * FROM treino_exercicio ORDER BY id_plano ASC;
 
 ---
 
-SELECT a.nome, a.email, p.nome, pa.data_hora, pa.metodo_pagamento FROM plano_aluno pa 
+SELECT a.nome, a.email, p.nome, p.preco, pa.metodo_pagamento, pa.data_hora FROM plano_aluno pa 
 JOIN planos p ON p.id_plano = pa.id_plano 
 JOIN alunos a ON a.id_aluno = pa.id_aluno 
 JOIN plano_aluno ON pa.data_hora = pa.data_hora AND pa.metodo_pagamento = pa.metodo_pagamento

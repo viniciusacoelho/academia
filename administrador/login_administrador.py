@@ -7,7 +7,6 @@ def login_administrador():
         limpar_tela()
 
         print("--------------------------------------------\n           Login\n--------------------------------------------")
-
         senha_acesso = input_asterisco("Digite a senha de acesso: ")
 
         if senha_acesso == "1234":

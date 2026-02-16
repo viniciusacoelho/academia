@@ -7,7 +7,7 @@ from alunos.crud_alunos import autenticar_aluno
 from alunos.painel_aluno import painel_aluno
 from alunos.validar_aluno import validar_nome, validar_email, validar_altura, validar_peso, validar_data_nascimento, formartar_data_nascimento, validar_senha
 from msvcrt import getch
-from banco_de_dados.validar_unique import validar_unique
+from banco_de_dados.validar_banco_de_dados import validar_unique
 
 def menu_aluno():
     while True:

@@ -25,7 +25,7 @@ def menu_administrador():
                 case 3: menu_treino()
                 case 4: menu_instrutor_administrador()
                 case 5: menu_exercicio()
-                case 5: 
+                case 6: 
                     print("Voltando...")
                     break
                 case _:

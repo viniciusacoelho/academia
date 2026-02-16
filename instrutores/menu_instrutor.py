@@ -8,7 +8,7 @@ from alunos.login_aluno import input_asterisco
 from instrutores.crud_instrutores import autenticar_instrutor
 from instrutores.painel_instrutor import painel_instrutor
 
-from banco_de_dados.validar_unique import validar_unique
+from banco_de_dados.validar_banco_de_dados import validar_unique
 
 from instrutores.validar_instrutor import validar_nome, validar_email, validar_cpf, formatar_cpf, validar_senha
 
