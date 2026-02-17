@@ -20,7 +20,7 @@ def menu_plano():
                 case 1: registrar_plano()
                 case 2: 
                     imprimir_planos()
-                    if len(listar_planos()) > 0:
+                    if len(listar_planos()) != 0:
                         print("Planos listados com sucesso!")
                 case 3: procurar_plano()
                 case 4: atualizar_planos()

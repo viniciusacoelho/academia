@@ -1,13 +1,11 @@
 from limpar_tela.limpar_tela import limpar_tela
-# from alunos.criar_conta_aluno import criar_conta
-# from alunos.login_aluno import login
 from alunos.crud_alunos import cadastrar_aluno
-from alunos.login_aluno import input_asterisco
 from alunos.crud_alunos import autenticar_aluno
 from alunos.painel_aluno import painel_aluno
 from alunos.validar_aluno import validar_nome, validar_email, validar_altura, validar_peso, validar_data_nascimento, formartar_data_nascimento, validar_senha
-from msvcrt import getch
 from banco_de_dados.validar_banco_de_dados import validar_unique
+
+from msvcrt import getch
 
 def menu_aluno():
     while True:
@@ -47,7 +45,7 @@ def criar_conta_aluno():
         if nome_valido:
             break
         else:
-            print("Nome inválido. Tente novamente.")
+            print("Nome inválido! Tente novamente.")
     
     while True:
         email = input("Digite seu e-mail: ")
@@ -56,7 +54,7 @@ def criar_conta_aluno():
         if email_valido:
             break
         else:
-            print("E-mail inválido. Tente novamente.")
+            print("E-mail inválido! Tente novamente.")
 
         email_unico = validar_unique(email, "alunos", 2)
         if email_unico:
@@ -72,7 +70,7 @@ def criar_conta_aluno():
             if altura_valida:
                 break
             else:
-                print("E-mail invádlido. Tente novamente.")
+                print("Altura inválida! Tente novamente.")
         except ValueError:
             print("[ERRO]: Digite um número!")
 
@@ -80,7 +78,12 @@ def criar_conta_aluno():
     while True:
         try:
             peso = float(input("Digite seu peso: "))
-            break
+            peso_valido = validar_peso(peso)
+            
+            if peso_valido:
+                break
+            else:
+                print("Peso inválido! Tente novamente.")
         except ValueError:
             print("[ERRO]: Digite um número!")
 
@@ -95,7 +98,7 @@ def criar_conta_aluno():
                 data_nascimento = formartar_data_nascimento(data_nascimento)
                 break
             else:
-                print("Data de nascimento inválida. Tente novamente.")
+                print("Data de nascimento inválida! Tente novamente.")
         except ValueError:
             print("[ERRO]: Digite um número!")
 
@@ -105,12 +108,14 @@ def criar_conta_aluno():
         if senha_valida:
             break
         else:
-            print("Senha inválida. Tente novamente.")
+            print("Senha inválida! Tente novamente.")
     
     while True:
         confirmar_senha = input_asterisco("Confirme sua senha: ")
         if confirmar_senha == senha:
             break
+        else:
+            print("Senhas diferentes! Tente novamente.")
 
     cadastrar_aluno(nome, email, altura, peso, data_nascimento, senha)
 

@@ -52,7 +52,6 @@ def assinar_plano(id_aluno: int):
     if total_planos == 0:
         print("Nenhum plano cadastrado anteriormente.")
     else:
-        # TODO: Talvez transformar em função:
         total_planos_aluno = assinar_plano(id_aluno)
 
         if len(total_planos_aluno) == 1:
@@ -76,9 +75,13 @@ def assinar_plano(id_aluno: int):
                     print("[ERRO]: Digite um número!")
 
 def cancelar_plano(id_aluno: int):
-    # TODO: Talvez transformar em função:
+    total_planos = len(listar_planos())
+
+    if total_planos == 0:
+        print("Nenhum plano cadastrado anteriormente.")
+    else:
         total_planos_aluno = visualizar_plano_aluno(id_aluno)
-    
+
         if len(total_planos_aluno) == 0:
             print("Nenhum plano assinado anteriormente.")
         else:

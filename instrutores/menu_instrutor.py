@@ -1,15 +1,9 @@
 from limpar_tela.limpar_tela import limpar_tela
-# from instrutores.criar_conta_instrutor import criar_conta
-# from instrutores.login_instrutor import login
-from instrutores.crud_instrutores import listar_instrutores
 from instrutores.crud_instrutores import cadastrar_instrutor
-from alunos.login_aluno import input_asterisco
-
+from alunos.menu_aluno import input_asterisco
 from instrutores.crud_instrutores import autenticar_instrutor
 from instrutores.painel_instrutor import painel_instrutor
-
 from banco_de_dados.validar_banco_de_dados import validar_unique
-
 from instrutores.validar_instrutor import validar_nome, validar_email, validar_cpf, formatar_cpf, validar_senha
 
 def menu_instrutor():
@@ -17,8 +11,8 @@ def menu_instrutor():
         limpar_tela()
 
         print("--------------------------------------------\n        Menu Instrutor\n--------------------------------------------")
-
         menu = ["Criar Conta", "Login", "Voltar"]
+
         for i in range(len(menu)):
             print(f"{i + 1} - {menu[i]}")
 
@@ -54,11 +48,10 @@ def criar_conta_instrutor():
 
     while True:
         email = input("Digite seu e-mail: ")
-
         email_valido = validar_email(email)
 
         if email_valido:
-            break
+            continue
         else:
             print("E-mail inválido. Tente novamente.")
 
@@ -74,8 +67,8 @@ def criar_conta_instrutor():
 
         try:
             int(cpf)
-
             cpf_valido = validar_cpf(cpf)
+
             if cpf_valido:
                 cpf = formatar_cpf(cpf)
                 break
@@ -84,17 +77,17 @@ def criar_conta_instrutor():
         except ValueError:
             print("[ERRO]: Digite um número!")
 
-
     while True:
         senha = input_asterisco("Digite sua senha: ")
         senha_valida = validar_senha(senha)
+
         if senha_valida:
-            break
+            continue
         else:
             print("Senha inválida. Tente novamente.")
 
-    while True:
         confirmar_senha = input_asterisco("Confirme sua senha: ")
+
         if confirmar_senha == senha:
             break
 

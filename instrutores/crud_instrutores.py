@@ -8,9 +8,9 @@ def cadastrar_instrutor(nome: str, email: str, cpf: str, senha: str):
 
         senha = criptografar(senha)
 
-        cursor.execute("INSERT INTO instrutores (nome, email, cpf, senha) VALUES (%s, %s, %s, %s);", [nome, email, cpf, senha])    
+        cursor.execute("INSERT INTO instrutores (nome, email, cpf, senha) VALUES (%s, %s, %s, %s);", [nome, email, cpf, senha])
         conexao.commit()
-        print("Instrutor cadastrado com sucesso!")
+        print(f"Instrutor {nome} cadastrado com sucesso!")
     except Exception as e:
         print(f"[ERRO]: Falha ao cadastrar instrutor: {e}")
     finally:
@@ -41,7 +41,6 @@ def listar_instrutores() -> list | None:
         cursor = conexao.cursor()
         cursor.execute("SELECT * FROM instrutores ORDER BY id_instrutor;")
         conexao.commit()
-        # print("Instrutores listados com sucesso!")
         return cursor.fetchall()
     except Exception as e:
         print(f"[ERRO]: Falha ao listar instrutores: {e}")
@@ -49,27 +48,35 @@ def listar_instrutores() -> list | None:
         cursor.close()
         conexao.close()
 
-def buscar_instrutor(email: str):
+def buscar_instrutor(email: str) -> list | None:
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT * FROM instrutores WHERE email = %s;", [f"%{email}%"])    
+        cursor.execute("SELECT * FROM instrutores WHERE email LIKE %s;", [f"%{email}%"])
         conexao.commit()
-        print("Instrutor buscado com sucesso!")
-        return cursor.fetchone()
+        nome_instrutor = listar_nome_instrutor(email, "email")
+
+        for nome in nome_instrutor:
+            print(f"Instrutor '{nome[0]}' buscado com sucesso!")
+
+        return cursor.fetchall()
     except Exception as e:
         print(f"[ERRO]: Falha ao buscar instrutor: {e}")
     finally:
         cursor.close()
         conexao.close()
 
-def atualizar_instrutor(id_instrutor: int, parametro_atributo: str, atributo: str):
+def atualizar_instrutor(id_instrutor: int, parametro_atributo: str, atributo: str, nome_atributo: str):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute(f"UPDATE instrutores SET {atributo} = %s WHERE id_instrutor = %s;", [parametro_atributo, id_instrutor])    
+        cursor.execute(f"UPDATE instrutores SET {atributo} = %s WHERE id_instrutor = %s;", [parametro_atributo, id_instrutor])
         conexao.commit()
-        print(f"{atributo} de instrutor atualizado com sucesso!")
+        nome_instrutor = listar_nome_instrutor(id_instrutor, "id_instrutor")
+
+        for nome in nome_instrutor:
+            print(f"{nome_atributo} de instrutor '{nome[0]}' atualizado com sucesso!")
+
     except Exception as e:
         print(f"[ERRO]: Falha ao atualizar instrutor: {e}")
     finally:
@@ -80,10 +87,12 @@ def deletar_instrutor(id_instrutor: int):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute(f"DELETE FROM instrutores WHERE id = %s;", [id_instrutor])    
+        cursor.execute(f"DELETE FROM instrutores WHERE id = %s;", [id_instrutor])
         conexao.commit()
-        # print(f"instrutor {nome} deletado com sucesso!")
-        print("Instrutor deletado com sucesso!")
+        nome_instrutor = listar_nome_instrutor(id_instrutor, "is_instrutor")
+
+        for nome in nome_instrutor:
+            print(f"Instrutor '{nome[0]}' deletado com sucesso!")
     except Exception as e:
         print(f"[ERRO]: Falha ao deletar instrutor: {e}")
     finally:
@@ -100,6 +109,18 @@ def listar_aluno_instrutor(id_instrutor: int) -> list | None:
         return cursor.fetchall()
     except Exception as e:
         print(f"[ERRO]: Falha ao listar instrutores: {e}")
+    finally:
+        cursor.close()
+        conexao.close()
+
+def listar_nome_instrutor(id_instrutor: int, atributo: str) -> list | None:
+    try:
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+        cursor.execute(f"SELECT nome FROM instrutores WHERE {atributo} = %s;", [id_instrutor])
+        return cursor.fetchall()
+    except Exception as e:
+        print(f"[ERRO]: Falha ao listar nome do instrutor: {e}")
     finally:
         cursor.close()
         conexao.close()

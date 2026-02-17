@@ -4,7 +4,7 @@ def cadastrar_exercicio(nome: str, quantidade_series: int, numero_repeticoes: in
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("INSERT INTO exercicios (nome, quantidade_series, numero_repeticoes, peso, tempo_descanso) VALUES (%s, %s, %s, %s, %s);", [nome, quantidade_series, numero_repeticoes, peso, tempo_descanso])    
+        cursor.execute("INSERT INTO exercicios (nome, quantidade_series, numero_repeticoes, peso, tempo_descanso) VALUES (%s, %s, %s, %s, %s);", [nome, quantidade_series, numero_repeticoes, peso, tempo_descanso])
         conexao.commit()
         print("Exercício cadastrado com sucesso!")
     except Exception as e:
@@ -31,7 +31,7 @@ def buscar_exercicio(nome: str):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT * FROM exercicios WHERE nome = %s;", [f"%{nome}%"])    
+        cursor.execute("SELECT * FROM exercicios WHERE nome = %s;", [f"%{nome}%"])
         conexao.commit()
         print("Exercício buscado com sucesso!")
         return cursor.fetchone()
@@ -58,7 +58,7 @@ def deletar_exercicio(id_exercicio: int):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("DELETE FROM exercicios WHERE id_exercicio = %s;", [id_exercicio])    
+        cursor.execute("DELETE FROM exercicios WHERE id_exercicio = %s;", [id_exercicio])
         conexao.commit()
         # print(f"Exercício {nome} deletado com sucesso!")
         print("Exercício deletado com sucesso!")
@@ -68,11 +68,11 @@ def deletar_exercicio(id_exercicio: int):
         cursor.close()
         conexao.close()
 
-def cadastrar_exercicio_treino(id_exercicio: int, id_treino: int):
+def cadastrar_exercicio_aluno(id_exercicio: int, id_treino: int):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("INSERT INTO treino_exercicio (id_treino, id_exercicio) VALUES (%s, %s) WHERE id_treino = %s;", [id_treino, id_exercicio, id_treino])    
+        cursor.execute("INSERT INTO treino_exercicio (id_treino, id_exercicio) VALUES (%s, %s) WHERE id_treino = %s;", [id_treino, id_exercicio, id_treino])
         conexao.commit()
         print("Aluno cadastrado com sucesso!")
     except Exception as e:
@@ -81,7 +81,7 @@ def cadastrar_exercicio_treino(id_exercicio: int, id_treino: int):
         cursor.close()
         conexao.close()
 
-def listar_exercicio_treino(id_treino: int) -> list | None:
+def listar_exercicio_aluno(id_treino: int) -> list | None:
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
@@ -97,7 +97,7 @@ def deletar_exercicio_aluno(id_treino: int, id_exercicio: int):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("DELETE FROM treino_exercicio WHERE id_treino = %s AND id_exercicio = %s;", [id_treino, id_exercicio])    
+        cursor.execute("DELETE FROM treino_exercicio WHERE id_treino = %s AND id_exercicio = %s;", [id_treino, id_exercicio])
         conexao.commit()
         # print(f"exercicio {nome} deletado com sucesso!")
         print("Exercício deletado com sucesso!")

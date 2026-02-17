@@ -21,7 +21,8 @@ def menu_instrutor_administrador():
                 case 1: criar_conta_instrutor()
                 case 2: 
                     imprimir_instrutores()
-                    print("Instrutores listados com sucesso!")
+                    if len(listar_instrutores()) != 0:
+                        print("Instrutores listados com sucesso!")
                 case 3: procurar_instrutor()
                 case 4: selecionar_instrutor()
                 case 5: remover_instrutor()
@@ -34,37 +35,80 @@ def menu_instrutor_administrador():
             print("[ERRO]: Digite um número!")
 
 def imprimir_instrutores():
-    instrutores = listar_instrutores()
+    quantidade_instrutores = len(listar_instrutores())
 
-    for instrutor in instrutores:
-        print(f"instrutor {instrutor[0]}\nNome: {instrutor[1]}\nE-mail: {instrutor[2]}\nCPF: {instrutor[3]}\nSenha: {instrutor[4]}\n")
-        print("--------------------------------------------")
+    if quantidade_instrutores == 0:
+        print("Nenhum instrutor cadastrado anteriormente.")
+    else:
+        instrutores = listar_instrutores()
+
+        for instrutor in instrutores:
+            print(f"instrutor {instrutor[0]}\nNome: {instrutor[1]}\nE-mail: {instrutor[2]}\nCPF: {instrutor[3]}\nSenha: {instrutor[4]}")
+            print("--------------------------------------------")
 
 def procurar_instrutor():
-    email = input("Digite o e-mail do instrutor para buscar: ")
-    instrutor_busca = buscar_instrutor(email)
+    quantidade_instrutores = len(listar_instrutores())
 
-    for instrutor in instrutor_busca:
-        print(f"instrutor {instrutor[0]}\nNome: {instrutor[1]}\nE-mail: {instrutor[2]}\nCPF: {instrutor[3]}\nSenha: {instrutor[4]}\n")
+    if quantidade_instrutores == 0:
+        print("Nenhum instrutor cadastrado anteriormente.")
+    else:
+        email = input("Digite o e-mail do instrutor para buscar: ")
+        instrutor_identificado = identificar_instrutor(email, 2)
+
+        if instrutor_identificado:
+            instrutor_busca = buscar_instrutor(email)
+            print("--------------------------------------------")
+
+            for instrutor in instrutor_busca:
+                print(f"instrutor {instrutor[0]}\nNome: {instrutor[1]}\nE-mail: {instrutor[2]}\nCPF: {instrutor[3]}\nSenha: {instrutor[4]}")
+        else:
+            print("E-mail do instrutor inválido! Tente novamente.")
 
 def selecionar_instrutor():
-    while True:
+    quantidade_instrutores = len(listar_instrutores())
+
+    if quantidade_instrutores == 0:
+        print("Nenhum instrutor cadastrado anteriormente.")
+    else:
         imprimir_instrutores()
 
         try:
             id_instrutor = int(input("Digite o ID do instrutor para atualizar: "))
-            atualizar_cadastro(id_instrutor)
-            break
+            instrutor_identificado = identificar_instrutor(id_instrutor, 0)
+
+            if instrutor_identificado:
+                atualizar_cadastro(id_instrutor)
+            else:
+                print("ID do aluno inválido! Tente novamente.")
+
         except ValueError:
             print("[ERRO]: Digite um número!")
 
 def remover_instrutor():
-    while True:
+    quantidade_instrutores = len(listar_instrutores())
+
+    if quantidade_instrutores == 0:
+        print("Nenhum instrutor cadastrado anteriormente.")
+    else:
         imprimir_instrutores()
 
         try:
             id_instrutor = int(input("Digite o ID do instrutor para deletar: "))
-            deletar_instrutor(id_instrutor)
-            break
+            instrutor_identificado = identificar_instrutor(id_instrutor, 0)
+
+            if instrutor_identificado:
+                deletar_instrutor(id_instrutor)
+            else:
+                print("ID do aluno inválido! Tente novamente.")
+
         except ValueError:
             print("[ERRO]: Digite um número!")
+
+def identificar_instrutor(atributo: int, posicao: int):
+    instrutores = listar_instrutores()
+
+    for instrutor in instrutores:
+        if atributo == instrutor[posicao]:
+            return True
+
+    return False

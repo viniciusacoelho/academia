@@ -109,3 +109,19 @@ SELECT senha FROM alunos WHERE id_aluno = 1;
 SELECT t.tipo, e.nome, e.quantidade_series, e.numero_repeticoes, e.peso, e.tempo_descanso FROM treino_exercicio te 
 JOIN exercicios e ON e.id_exercicio = te.id_exercicio 
 JOIN treinos t ON t.id_treino = te.id_treino;
+
+--
+
+SELECT * FROM planos ORDER BY id_plano ASC;
+
+SELECT * FROM treinos ORDER BY id_treino ASC;
+
+SELECT * FROM exercicios ORDER BY id_exercicio ASC;
+
+SELECT * FROM instrutores ORDER BY id_instrutor ASC;
+
+SELECT * FROM alunos ORDER BY id_aluno ASC;
+
+SELECT * FROM plano_aluno ORDER BY id_aluno ASC;
+
+SELECT * FROM treino_exercicio ORDER BY id_treino ASC;

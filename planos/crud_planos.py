@@ -25,11 +25,11 @@ def listar_planos() -> list | None:
         cursor.close()
         conexao.close()
 
-def buscar_plano(nome: str):
+def buscar_plano(nome: str) -> list | None:
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT * FROM planos WHERE nome LIKE %s ORDER BY id_plano ASC;", [f"%{nome}%"])    
+        cursor.execute("SELECT * FROM planos WHERE nome LIKE %s ORDER BY id_plano ASC;", [f"%{nome}%"])
         print(f"Plano '{nome}' buscado com sucesso!")
         return cursor.fetchall()
     except Exception as e:
@@ -76,7 +76,7 @@ def assinar_plano_aluno(id_plano: int, id_aluno: int, metodo_pagamento: str, dat
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("INSERT INTO plano_aluno (id_plano, id_aluno, metodo_pagamento, data_hora) VALUES (%s, %s, %s, %s);", [id_plano, id_aluno, metodo_pagamento, data_hora])    
+        cursor.execute("INSERT INTO plano_aluno (id_plano, id_aluno, metodo_pagamento, data_hora) VALUES (%s, %s, %s, %s);", [id_plano, id_aluno, metodo_pagamento, data_hora])
         conexao.commit()
         nome_plano = listar_nome_plano(id_plano)
 
@@ -105,7 +105,7 @@ def cancelar_plano_aluno(id_plano: int, id_aluno: int):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute(f"DELETE FROM plano_aluno WHERE id_plano = %s AND id_aluno = %s;", [id_plano, id_aluno])    
+        cursor.execute(f"DELETE FROM plano_aluno WHERE id_plano = %s AND id_aluno = %s;", [id_plano, id_aluno])
         nome_plano = listar_nome_plano(id_plano)
         conexao.commit()
 

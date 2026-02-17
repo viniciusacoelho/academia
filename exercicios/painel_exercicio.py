@@ -10,7 +10,7 @@ def painel_exercicio(id_aluno: int):
 
         print("--------------------------------------------\n        Painel exercicio\n--------------------------------------------")
 
-        menu = ["Adicionar Exercício", "Remover Exercício", "Voltar"]
+        menu = ["Adicionar Exercício", "Editar Exercício", "Remover Exercício", "Voltar"]
         for i in range(len(menu)):
             print(f"{i + 1} - {menu[i]}")
 

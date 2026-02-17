@@ -138,3 +138,6 @@ def validar_senha():
 
 senha = input("Senha: ")
 
+from alunos.menu_aluno import input_asterisco
+
+input_asterisco("fknfiuspro: ")

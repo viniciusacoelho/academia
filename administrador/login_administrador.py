@@ -1,15 +1,17 @@
 from limpar_tela.limpar_tela import limpar_tela
+from alunos.menu_aluno import input_asterisco
 from administrador.menu_administrador import menu_administrador
-from alunos.login_aluno import input_asterisco
 
 def login_administrador():
+    SENHA_ACESSO = "1234"
+
     while True:
         limpar_tela()
 
-        print("--------------------------------------------\n           Login\n--------------------------------------------")
-        senha_acesso = input_asterisco("Digite a senha de acesso: ")
+        print("--------------------------------------------\n                   Login\n--------------------------------------------")
+        senha = input_asterisco("Digite a senha de acesso: ")
 
-        if senha_acesso == "1234":
+        if senha == SENHA_ACESSO:
             print("Login realizado com sucesso! Seja bem-vindo(a)!")
             menu_administrador()
             break
