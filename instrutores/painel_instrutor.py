@@ -1,26 +1,23 @@
 from limpar_tela.limpar_tela import limpar_tela
-# from instrutores.atualizar_instrutor import atualizar_instrutor
 from instrutores.crud_instrutores import listar_aluno_instrutor, atualizar_instrutor
 from alunos.crud_alunos import listar_alunos
 from treinos.menu_treino import registrar_treino
 from treinos.painel_treino import editar_treino
 from alunos.painel_aluno import excluir_conta
-from exercicios.menu_exercicio import menu_exercicio
 from alunos.menu_aluno_administrador import imprimir_alunos, identificar_aluno
 from instrutores.validar_instrutor import validar_nome, validar_email, validar_cpf, formatar_cpf, validar_senha
 from banco_de_dados.validar_banco_de_dados import validar_unique
 from msvcrt import getch
 from criptografia.criptografar import criptografar
+from treinos.painel_treino import painel_treino
 
 def painel_instrutor(instrutor_autenticado: list):
     while True:
         limpar_tela()
 
         print("\n--------------------------------------------\n            Painel Treino\n--------------------------------------------")
-
-        menu = ["Criar Treino", "Editar Treino", "Criar Exercício", "Editar Exercício", "Visualizar Alunos", "Atualizar Cadastro", "Excluir Conta", "Voltar"]
-        # TODO: Funcionalidade de Adicionar/Remover Exercício
-        # menu = ["Criar Treino", "Editar Treino", "Adicionar Exercício", "Visualizar Alunos", "Atualizar Cadastro", "Excluir Conta", "Voltar"]
+        menu = ["Treinos", "Visualizar Alunos", "Atualizar Cadastro", "Excluir Conta", "Voltar"]
+        
         for i in range(len(menu)):
             print(f"{i + 1} - {menu[i]}")
 
@@ -29,12 +26,12 @@ def painel_instrutor(instrutor_autenticado: list):
             opcao = int(input("Digite uma opção: "))
             
             match opcao:
-                case 1: criar_treino(instrutor_autenticado)
-                case 2: editar_treino_instrutor()
-                case 3: visualizar_alunos(instrutor_autenticado[0])
-                case 4: atualizar_cadastro(instrutor_autenticado[0])
-                case 5: excluir_conta(instrutor_autenticado[0], "Instrutor")
-                case 6:
+                # case 1: criar_treino(instrutor_autenticado)
+                case 1: painel_treino(instrutor_autenticado)
+                case 2: visualizar_alunos(instrutor_autenticado)
+                case 3: atualizar_cadastro(instrutor_autenticado)
+                case 4: excluir_conta(instrutor_autenticado, "Instrutor")
+                case 5:
                     print("Voltando...")
                     break
                 case _:

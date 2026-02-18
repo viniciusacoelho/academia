@@ -84,7 +84,7 @@ CREATE TABLE treino_exercicio(
 	FOREIGN KEY(id_exercicio) REFERENCES exercicios(id_exercicio)
 );
 
-SELECT * FROM treino_exercicio ORDER BY id_plano ASC;
+SELECT * FROM treino_exercicio ORDER BY id_treino ASC;
 
 ---
 
@@ -110,6 +110,18 @@ SELECT t.tipo, e.nome, e.quantidade_series, e.numero_repeticoes, e.peso, e.tempo
 JOIN exercicios e ON e.id_exercicio = te.id_exercicio 
 JOIN treinos t ON t.id_treino = te.id_treino;
 
+SELECT t.id_treino, t.nome, t.tipo, i.nome FROM treinos t 
+JOIN instrutores i ON i.id_instrutor = t.id_instrutor 
+WHERE id_aluno = 1 ORDER BY id_treino ASC;
+
+SELECT t.nome, t.tipo, e.nome, e.quantidade_series, e.numero_repeticoes, e.peso, e.tempo_descanso, i.nome, a.nome  
+FROM treino_exercicio te 
+JOIN exercicios e ON e.id_exercicio = te.id_exercicio 
+JOIN treinos t ON t.id_treino = te.id_treino
+JOIN instrutores i ON i.id_instrutor = t.id_instrutor 
+JOIN alunos a ON a.id_aluno = t.id_aluno 
+WHERE t.id_treino = 2 ORDER BY e.id_exercicio;
+
 --
 
 SELECT * FROM planos ORDER BY id_plano ASC;
@@ -122,6 +134,6 @@ SELECT * FROM instrutores ORDER BY id_instrutor ASC;
 
 SELECT * FROM alunos ORDER BY id_aluno ASC;
 
-SELECT * FROM plano_aluno ORDER BY id_aluno ASC;
+SELECT * FROM plano_aluno ORDER BY id_plano ASC;
 
 SELECT * FROM treino_exercicio ORDER BY id_treino ASC;

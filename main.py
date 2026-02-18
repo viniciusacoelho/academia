@@ -8,8 +8,8 @@ while True:
 
     print("--------------------------------------------\n                  Academia\n--------------------------------------------")
     print("Identifique-se\n")
-
     menu = ["Administrador", "Aluno", "Instrutor", "Sair"]
+
     for i in range(len(menu)):
         print(f"{i + 1} - {menu[i]}")
 
@@ -82,44 +82,4 @@ while True:
     Treino tem dia/hora de começo e fim e o tempo de treino
 
     Academia: horário de funcionamento, endereço
-"""
-
-
-
-"""
-    def plano_anual():
-        print("-----Plano Anual-----")
-
-    def plano_mensal():
-        print("-----Plano Mensal-----")
-
-    def plano_semestral():
-        print("-----Plano Semestral-----")
-
-    # Academia - planos, alunos, treinos, instrutores.
-
-    from planos.planos import plano_mensal, plano_trimestral, plano_semestral, plano_anual
-
-    menu = ["Mensal", "Trimestral", "Semestral", "Anual"]
-
-    while True:
-        for i in range(4):
-            print(f"{i + 1}. {menu[i]}")
-
-        try:
-            opcao = int(input("Digite uma opcão: "))
-        except ValueError:
-            print("Erro: Digite um número!")
-            
-        match opcao:
-            case 1:
-                plano_mensal()
-            case 2:
-                plano_trimestral()
-            case 3:
-                plano_semestral()
-            case 4:
-                plano_anual()
-            case _:
-                print("Digite um número!")
 """

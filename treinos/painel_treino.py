@@ -2,14 +2,16 @@ from limpar_tela.limpar_tela import limpar_tela
 from treinos.crud_treinos import listar_treinos, listar_treino_aluno, atualizar_treino_aluno, listar_treinos
 from exercicios.painel_exercicio import painel_exercicio
 from treinos.menu_treino import identificar_treino
+from exercicios.menu_exercicio import imprimir_exercicios
+from exercicios.crud_exercicio import listar_exercicio_aluno, listar_imprimir_exercicio_aluno
 
 def painel_treino(id_aluno: int):
     while True:
         limpar_tela()
 
         print("--------------------------------------------\n        Painel Treino\n--------------------------------------------")
-
         menu = ["Visualizar Treinos", "Editar Treino", "Exercícios", "Voltar"]
+
         for i in range(len(menu)):
             print(f"{i + 1} - {menu[i]}")
 
@@ -18,7 +20,10 @@ def painel_treino(id_aluno: int):
             opcao = int(input("Digite uma opção: "))
 
             match opcao:
-                case 1: visulizar_treinos(id_aluno)
+                case 1:
+                    if len(listar_treino_aluno(id_aluno)) != 0:
+                        visulizar_treinos(id_aluno)
+                        print("Treinos listados com sucesso!")
                 case 2: editar_treino(id_aluno)
                 case 3: painel_exercicio(id_aluno)
                 case 4:
@@ -42,9 +47,22 @@ def visulizar_treinos(id_aluno: int):
             print("Nenhum treino cadastrado à você anteriormente.")
         else:
             treinos_aluno = listar_treino_aluno(id_aluno)
-
+            
             for treino_aluno in treinos_aluno:
-                print(f"Treino {treino_aluno[0]}\nTipo: {treino_aluno[1]}\nExercícios: {treino_aluno[2]}\nID do Aluno: {treino_aluno[3]}\nID do Instrutor: {treino_aluno[4]}")
+                print(f"Treino {treino_aluno[0]}\nNome: {treino_aluno[1]}\nTipo: {treino_aluno[2]}")
+                print("Exercícios:")
+                
+                if len(listar_exercicio_aluno(treino_aluno[0])) == 0:
+                    print("Nenhum exercício cadastrado anteriormente.")
+                else:
+                    for i in range(len(listar_exercicio_aluno(treino_aluno[0]))):
+                        exercicios = listar_imprimir_exercicio_aluno(treino_aluno[0])
+                        for exercicio in exercicios:
+                            print(f"Exercício {exercicio[0]}\nNome: {exercicio[1]}\nQuantidade de séries: {exercicio[2]}\nNúmero de repetições: {exercicio[3]}\nPeso: {exercicio[4]}kg\nTempo de Descanço: {exercicio[5]}")
+                            print("--------------------------------------------")
+                print(f"Instrutor: {treino_aluno[3]}")
+                print("--------------------------------------------")
+
 
 def editar_treino(id_aluno: int):
     total_treinos_aluno = len(listar_treino_aluno(id_aluno))

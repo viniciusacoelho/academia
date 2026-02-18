@@ -74,6 +74,8 @@ def registrar_treino(id_instrutor: int, id_aluno: int):
         except ValueError:
             print("[ERRO]: Digite um número!")
 
+    cadastrar_treino(nome, tipo, id_aluno, id_instrutor)
+
     # while True:
     #     try:
     #         quantidade_exercicios = int(input("Digite a quantidade de exercícios: "))
@@ -96,7 +98,6 @@ def registrar_treino(id_instrutor: int, id_aluno: int):
     #     tempo_descanso = input(f"Digite o tempo de descanso do exercício {i + 1}: ")
 
         # cadastrar_treino(tipo, nome_exercicio, peso, repeticoes, series, tempo_descanso, id_aluno, id_instrutor)
-        cadastrar_treino(tipo, id_aluno, id_instrutor)
 
 def imprimir_treinos():
     total_treinos = len(listar_treinos())
@@ -107,11 +108,8 @@ def imprimir_treinos():
         treinos = listar_treinos()
 
         for treino in treinos:
-            # print(f"Treino {treino[0]}\nTipo: {treino[1]}\nExercícios: {treino[2]}\nDescrição: {treino[3]}\nTipo: {treino[4]}\nPreço: {treino[5]}")
             print(f"Treino {treino[0]}\nTipo: {treino[1]}\nExercícios: {treino[2]}\nID do Aluno: {treino[3]}\nID do Instrutor: {treino[4]}")
             print("--------------------------------------------")
-
-        print("Treinos listados com sucesso!")
 
 def procurar_treino():
     total_treinos = len(listar_treinos())
@@ -120,9 +118,9 @@ def procurar_treino():
         print("Nenhum treino cadastrado anteriormente.")
     else:
         nome = input("Digite o nome do treino para buscar: ")
-        instrutor_identificado = identificar_treino(nome, 1)
+        treino_identificado = identificar_treino(nome, 1)
 
-        if instrutor_identificado:
+        if treino_identificado:
             treino_busca = buscar_treino(nome)
             print("--------------------------------------------")
 
@@ -130,7 +128,7 @@ def procurar_treino():
                 print(f"Treino {treino[0]}\nTipo: {treino[1]}\nExercícios: {treino[2]}\nDescrição: {treino[3]}\nTipo: {treino[4]}\nPreço: {treino[5]}")
 
         else:
-            print("E-mail do instrutor inválido! Tente novamente.")
+            print("Nome do treino inválido! Tente novamente.")
 
 def remover_treino():
     total_treinos = len(listar_treinos())

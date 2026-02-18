@@ -1,12 +1,12 @@
 from banco_de_dados.criar_conexao import criar_conexao
 
-def cadastrar_treino(tipo: str, id_instrutor: int, id_aluno: int):
+def cadastrar_treino(nome: str, tipo: str, id_instrutor: int, id_aluno: int):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("INSERT INTO treinos (tipo, id_instrutor, id_aluno) VALUES (%s, %s, %s);", [tipo, id_instrutor, id_aluno])
+        cursor.execute("INSERT INTO treinos (nome, tipo, id_instrutor, id_aluno) VALUES (%s, %s, %s, %s);", [nome, tipo, id_instrutor, id_aluno])
         conexao.commit()
-        print(f"Treino '{tipo}' cadastrado com sucesso!")
+        print(f"Treino '{nome}' cadastrado com sucesso!")
     except Exception as e:
         print(f"[ERRO]: Falha ao cadastrar treino: {e}")
     finally:
@@ -82,7 +82,7 @@ def listar_treino_aluno(id_aluno: int) -> list | None:
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT * FROM treinos WHERE id_aluno = %s ORDER BY id_treino ASC;", [id_aluno])
+        cursor.execute("SELECT t.id_treino, t.nome, t.tipo, i.nome FROM treinos t JOIN instrutores i ON i.id_instrutor = t.id_instrutor WHERE id_aluno = %s ORDER BY id_treino ASC;", [id_aluno])
         return cursor.fetchall()
     except Exception as e:
         print(f"[ERRO]: Falha ao visualizar treino de aluno: {e}")
