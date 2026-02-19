@@ -1,7 +1,7 @@
-from limpar_tela.limpar_tela import limpar_tela
-from administrador.login_administrador import login_administrador
-from alunos.menu_aluno import menu_aluno
-from instrutores.menu_instrutor import menu_instrutor
+from util.limpar_tela_util import limpar_tela
+from view.administrador_view import login_administrador
+from view.alunos_view.menu_aluno import menu_aluno
+from view.instrutores_view.menu_instrutor import menu_instrutor
 
 while True:
     limpar_tela()
