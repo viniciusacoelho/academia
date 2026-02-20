@@ -114,3 +114,31 @@ def listar_nome_treino(id_treino: int, atributo: str) -> list | None:
     finally:
         cursor.close()
         conexao.close()
+
+def listar_treino_instrutor(id_instrutor: int) -> list | None:
+    try:
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+        cursor.execute("SELECT t.id_treino, t.nome, t.tipo, a.nome FROM treinos t JOIN alunos a ON a.id_aluno = t.id_aluno WHERE id_instrutor = %s ORDER BY id_treino ASC;", [id_instrutor])
+        return cursor.fetchall()
+    except Exception as e:
+        print(f"[ERRO]: Falha ao visualizar treino de instrutor: {e}")
+    finally:
+        cursor.close()
+        conexao.close()
+
+def atualizar_treino_instrutor(id_instrutor: int, id_treino: int, nome_exercicio: str, parametro_atributo: str | int, atributo: str):
+# TODO: Simplificar o código
+# def atualizar_treino_instrutor(id: int, id_treino: int, nome_exercicio: str, parametro_atributo: str | int, atributo: str):
+    try:
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+        cursor.execute(f"UPDATE treinos SET {atributo} = %s WHERE id_treino = %s AND id_instrutor = %s AND nome_exercicio = %s;", [parametro_atributo, id_treino, id_instrutor, nome_exercicio])
+        # cursor.execute(f"UPDATE treinos SET {atributo} = %s WHERE id_treino = %s AND id_{entidade} = %s AND nome_exercicio = %s;", [parametro_atributo, id_treino, id_instrutor, nome_exercicio])
+        conexao.commit()
+        print(f"{atributo} de treino atualizado com sucesso!")
+    except Exception as e:
+        print(f"[ERRO]: Falha ao atualizar treino: {e}")
+    finally:
+        cursor.close()
+        conexao.close()

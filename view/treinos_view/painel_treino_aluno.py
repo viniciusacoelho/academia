@@ -1,11 +1,11 @@
 from util.limpar_tela_util import limpar_tela
 from repository.treinos_repository import listar_treinos, listar_treino_aluno, atualizar_treino_aluno, listar_treinos
-from view.exercicios_view.painel_exercicio import painel_exercicio
+# from view.exercicios_view.painel_exercicio import painel_exercicio
 from view.treinos_view.menu_treino import registrar_treino, identificar_treino
-from view.exercicios_view.menu_exercicio import imprimir_exercicios
+# from view.exercicios_view.menu_exercicio import imprimir_exercicios
 from repository.treino_exercicio_repository import listar_treino_exercicio, listar_treino_exercicio_join
 
-def painel_treino(id_aluno: int):
+def painel_treino_aluno(id_aluno: int):
     while True:
         limpar_tela()
 
@@ -26,7 +26,7 @@ def painel_treino(id_aluno: int):
                         visulizar_treinos_aluno(id_aluno)
                         print("Treinos listados com sucesso!")
                 case 3: editar_treino_aluno(id_aluno)
-                case 4: painel_exercicio(id_aluno)
+                # case 4: painel_exercicio(id_aluno)
                 case 5:
                     print("Voltando...")
                     break
@@ -35,6 +35,36 @@ def painel_treino(id_aluno: int):
 
         except ValueError:
             print("[ERRO]: Digite um número!")
+
+# def visulizar_treinos_aluno(id_aluno: int):
+#     total_treinos = len(listar_treinos())
+
+#     if total_treinos == 0:
+#         print("Nenhum treino cadastrado anteriormente.")
+#     else:
+#         total_treinos_aluno = len(listar_treino_aluno(id_aluno))
+
+#         if total_treinos_aluno == 0:
+#             print("Nenhum treino cadastrado à você anteriormente.")
+#         else:
+#             treinos_aluno = listar_treino_aluno(id_aluno)
+            
+#             for treino_aluno in treinos_aluno:
+#                 print(f"Treino {treino_aluno[0]}\nNome: {treino_aluno[1]}\nTipo: {treino_aluno[2]}")
+#                 print("Exercícios:")
+                
+#                 if len(listar_treino_exercicio(treino_aluno[0])) == 0:
+#                     print("Nenhum exercício cadastrado anteriormente.")
+#                 else:
+#                     pass
+#                 print(f"Instrutor: {treino_aluno[3]}")
+#                 print("--------------------------------------------")
+
+#     for i in range(len(listar_treino_exercicio(treino_aluno[0]))):
+#         exercicios = listar_treino_exercicio_join(treino_aluno[0])
+#         for exercicio in exercicios:
+#             print(f"Exercício {exercicio[0]}\nNome: {exercicio[1]}\nQuantidade de séries: {exercicio[2]}\nNúmero de repetições: {exercicio[3]}\nPeso: {exercicio[4]}kg\nTempo de Descanço: {exercicio[5]}")
+#             print("--------------------------------------------")
 
 def visulizar_treinos_aluno(id_aluno: int):
     total_treinos = len(listar_treinos())
@@ -56,41 +86,11 @@ def visulizar_treinos_aluno(id_aluno: int):
                 if len(listar_treino_exercicio(treino_aluno[0])) == 0:
                     print("Nenhum exercício cadastrado anteriormente.")
                 else:
-                    pass
-                print(f"Instrutor: {treino_aluno[3]}")
-                print("--------------------------------------------")
-
-    for i in range(len(listar_treino_exercicio(treino_aluno[0]))):
-        exercicios = listar_treino_exercicio_join(treino_aluno[0])
-        for exercicio in exercicios:
-            print(f"Exercício {exercicio[0]}\nNome: {exercicio[1]}\nQuantidade de séries: {exercicio[2]}\nNúmero de repetições: {exercicio[3]}\nPeso: {exercicio[4]}kg\nTempo de Descanço: {exercicio[5]}")
-            print("--------------------------------------------")
-
-def visulizar_treinos_instrutor(id_aluno: int):
-    total_treinos = len(listar_treinos())
-
-    if total_treinos == 0:
-        print("Nenhum treino cadastrado anteriormente.")
-    else:
-        total_treinos_aluno = len(listar_treino_aluno(id_aluno))
-
-        if total_treinos_aluno == 0:
-            print("Nenhum treino cadastrado à você anteriormente.")
-        else:
-            treinos_aluno = listar_treino_aluno(id_aluno)
-            
-            for treino_aluno in treinos_aluno:
-                print(f"Treino {treino_aluno[0]}\nNome: {treino_aluno[1]}\nTipo: {treino_aluno[2]}")
-                print("Exercícios:")
-                
-                if len(listar_treino_exercicio(treino_aluno[0])) == 0:
-                    print("Nenhum exercício cadastrado anteriormente.")
-                else:
-                    for i in range(len(listar_treino_exercicio(treino_aluno[0]))):
-                        exercicios = listar_treino_exercicio_join(treino_aluno[0])
-                        for exercicio in exercicios:
-                            print(f"Exercício {exercicio[0]}\nNome: {exercicio[1]}\nQuantidade de séries: {exercicio[2]}\nNúmero de repetições: {exercicio[3]}\nPeso: {exercicio[4]}kg\nTempo de Descanço: {exercicio[5]}")
-                            print("--------------------------------------------")
+                    print("--------------------------------------------")
+                    exercicios = listar_treino_exercicio_join(treino_aluno[0])
+                    for exercicio in exercicios:
+                        print(f"Exercício {exercicio[0]}\nNome: {exercicio[1]}\nQuantidade de séries: {exercicio[2]}\nNúmero de repetições: {exercicio[3]}\nPeso: {exercicio[4]}kg\nTempo de Descanço: {exercicio[5]}")
+                        print("--------------------------------------------")
                 print(f"Instrutor: {treino_aluno[3]}")
                 print("--------------------------------------------")
 

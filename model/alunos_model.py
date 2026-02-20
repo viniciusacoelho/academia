@@ -10,7 +10,7 @@ def selecionar_aluno():
         imprimir_alunos()
 
         try:
-            id_aluno = int(input("Digite o ID do aluno para atualizar: "))
+            id_aluno = int(input("Digite o ID do aluno: "))
             aluno_identificado = identificar_aluno(id_aluno, 0)
 
             if aluno_identificado:

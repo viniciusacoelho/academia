@@ -7,8 +7,10 @@ from repository.alunos_repository import listar_alunos, atualizar_aluno
 from config.criptografia_config import criptografar
 from util.confirmar_excluir_conta_util import confirmar_excluir_conta
 from model.alunos_model import selecionar_aluno
+from view.planos_view.painel_plano import painel_plano
+from view.treinos_view.painel_treino_aluno import painel_treino_aluno
 
-def painel_aluno(id_aluno: int):
+def painel_aluno(aluno_autenticado: int):
     while True:
         limpar_tela()
 
@@ -23,10 +25,10 @@ def painel_aluno(id_aluno: int):
             opcao = int(input("Digite uma opção: "))
 
             match opcao:
-                # case 1: painel_plano(id_aluno)
-                # case 2: painel_treino(id_aluno)
-                case 3: editar_aluno(id_aluno)
-                case 4: confirmar_excluir_conta(id_aluno, "Aluno")
+                case 1: painel_plano(aluno_autenticado[0])
+                case 2: painel_treino_aluno(aluno_autenticado[0])
+                case 3: editar_aluno(aluno_autenticado[0])
+                case 4: confirmar_excluir_conta(aluno_autenticado[0], "Aluno")
                 case 5:
                     print("Voltando...")
                     break

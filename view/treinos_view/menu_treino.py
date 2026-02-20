@@ -40,9 +40,8 @@ def menu_treino():
 def registrar_treino(id_instrutor: int):
     limpar_tela()
 
-    id_aluno = selecionar_aluno()
-
     print("--------------------------------------------\n              Cadastrar Treino\n--------------------------------------------")
+    id_aluno = selecionar_aluno()
 
     while True:
         nome = input("Digite o nome do treino: ")
@@ -61,7 +60,7 @@ def registrar_treino(id_instrutor: int):
         try:
             print("--------------------------------------------")
             id_tipo_treino = int(input("Digite o ID do tipo de treino: "))
-            
+
             match id_tipo_treino:
                 case 1:
                     tipo = "Empurrar"

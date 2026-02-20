@@ -9,6 +9,8 @@ from service.exercicios_service import validar_quantidade_series, validar_peso, 
 from service.exercicios_service import validar_quantidade_exercicios
 from util.validacoes_util import validar_nome
 from model.exercicios_model import selecionar_exercicio, confirmar_remover_exercicio
+from view.treinos_view.painel_treino_aluno import visulizar_treinos_aluno
+from model.treinos_model import selecionar_treino
 
 def painel_exercicio(id_aluno: int):
     while True:
@@ -26,7 +28,7 @@ def painel_exercicio(id_aluno: int):
 
             match opcao:
                 case 1: adicionar_exercicio(id_aluno)
-                # case 2: editar_exercicio(id_aluno)
+                case 2: editar_exercicio(id_aluno)
                 # case 3: excluir_exercicio(id_aluno)
                 case 4:
                     print("Voltando...")
@@ -89,109 +91,115 @@ def editar_exercicio(id_aluno: int):
     if len(total_exercicio_aluno) == 0:
         print("Nenhum exercício escolhido anteriormente.")
     else:
+        visulizar_treinos_aluno(id_aluno)
+        id_treino = selecionar_treino()
         id_exercicio = selecionar_exercicio()
-        
+
         while True:
             limpar_tela()
 
             print("\n--------------------------------------------\n          Atualizar exercício\n--------------------------------------------")
             menu = ["Nome", "Quantidade de Séries", "Número de Repetições", "Peso", "Tempo de Descanço", "Voltar"]
 
-            while True:
-                for i in range(len(menu)):
-                    print(f"{i + 1} - {menu[i]}")
+            for i in range(len(menu)):
+                print(f"{i + 1} - {menu[i]}")
 
-                try:
-                    print("--------------------------------------------")
-                    opcao = int(input("Digite uma opção: "))
+            try:
+                print("--------------------------------------------")
+                opcao = int(input("Digite uma opção: "))
 
-                    match opcao:
-                        case 1:
-                            while True:
-                                nome = input("Digite o novo nome do exercício: ")
-                                novo_nome_valido = validar_nome(nome)
-                                if novo_nome_valido:
-                                    atualizar_exercicio(id_exercicio, nome, "nome", "Nome")
+                match opcao:
+                    case 1:
+                        while True:
+                            nome = input("Digite o novo nome do exercício: ")
+                            novo_nome_valido = validar_nome(nome)
+                            if novo_nome_valido:
+                                atualizar_exercicio(id_exercicio, nome, "nome", "Nome")
+                                break
+                            else:
+                                print("Novo nome inválido! Tente novamente.")
+
+                    case 2:
+                        while True:
+                            try:
+                                nova_quantidade_series = int(input("Digite a nova quantidade de séries do exercício: "))
+                                nova_quantidade_series_validas = validar_quantidade_series(nova_quantidade_series)
+                                if nova_quantidade_series_validas:
+                                    atualizar_exercicio(id_exercicio, nova_quantidade_series, "quantidade_series", "Quantidade de Séries")
                                     break
                                 else:
-                                    print("Novo nome inválido! Tente novamente.")
-                        case 2:
-                            while True:
-                                try:
-                                    nova_quantidade_series = input("Digite a nova quantidade de séries do exercício: ")
-                                    nova_quantidade_series_validas = validar_quantidade_series(nova_quantidade_series)
-                                    if nova_quantidade_series_validas:
-                                        atualizar_exercicio(id_exercicio, nova_quantidade_series, "quantidade_series", "Quantidade de Séries")
-                                        break
-                                    else:
-                                        print("Nova quantidade de séries inválidas! Tente novamente.")
-                                except ValueError:
-                                    print("[ERRO]: Digite um número!")
-                        case 3:
-                            while True:
-                                try:
-                                    novo_numero_repeticoes = float(input("Digite o novo número de repetições do exercício: "))
-                                    novo_numero_repeticoes_valido = validar_numero_repeticoes(novo_numero_repeticoes)
-                                    if novo_numero_repeticoes_valido:
-                                        atualizar_exercicio(id_exercicio, novo_numero_repeticoes, "numero_repetcioes", "Número de Repetições")
-                                        break
-                                    else:
-                                        print("Novo número de repetições inválido! Tente novamente.")
-                                except ValueError:
-                                    print("[ERRO]: Digite um número!")
-                        case 4:
-                            while True:
-                                try:
-                                    print("--------------------------------------------")
-                                    novo_peso = int(input("Digite o novo peso de exercicio: "))
-                                    novo_peso_valido = validar_peso(novo_peso)
-                                    if novo_peso_valido:
-                                        atualizar_exercicio(id_exercicio, novo_peso, "peso", "Peso")
-                                        break
-                                    else:
-                                        print("Novo peso inválido! Tente novamente.")
-                                except ValueError:
-                                    print("[ERRO]: Digite um número!")
-                        case 5:
-                            while True:
-                                menu = ["Segundo (s)", "Minuto (min)", "Hora (h)"]
-                                for i in range(len(menu)):
-                                    print(f"{i + 1} - {menu[i]}")
+                                    print("Nova quantidade de séries inválidas! Tente novamente.")
+                            except ValueError:
+                                print("[ERRO]: Digite um número!")
 
-                                nova_unidade_medida = input("Digite a nova unidade de medida do tempo de descanço: ").lower()
-
-                                if nova_unidade_medida == "segundo" or nova_unidade_medida == "s":
-                                    nova_unidade_medida = "s"
-                                    break
-                                elif nova_unidade_medida == "minuto" or nova_unidade_medida == "min" or nova_unidade_medida == "m":
-                                    nova_unidade_medida = "min"
-                                    break
-                                elif nova_unidade_medida == "hora" or nova_unidade_medida == "h":
-                                    nova_unidade_medida = "h"
+                    case 3:
+                        while True:
+                            try:
+                                novo_numero_repeticoes = int(input("Digite o novo número de repetições do exercício: "))
+                                novo_numero_repeticoes_valido = validar_numero_repeticoes(novo_numero_repeticoes)
+                                if novo_numero_repeticoes_valido:
+                                    atualizar_exercicio(id_exercicio, novo_numero_repeticoes, "numero_repeticoes", "Número de Repetições")
                                     break
                                 else:
-                                    print("Unidade de medida inválida! Tente novamente.")
-                            while True:
-                                try:
-                                    novo_tempo_descanso = float(input("Digite o novo tempo de descanço do exercício: "))
-                                    novo_tempo_descanso_valido = validar_tempo_descanso(novo_tempo_descanso)
-                                    if novo_tempo_descanso_valido:
-                                        novo_tempo_descanso_validado = str(novo_tempo_descanso)
-                                        atualizar_exercicio(id_exercicio, novo_tempo_descanso_validado + nova_unidade_medida, "tempo_descanso", "Tempo de Descanço")
-                                        break
-                                    else:
-                                        print("Tempo de descanço inválido! Tente novamente.")
-                                except ValueError:
-                                    print("[ERRO]: Digite um número!")
-                            break
-                        case 6:
-                            print("Voltando...")
-                            break
-                        case _:
-                            print("Opção inválida! Tente novamente.")
+                                    print("Novo número de repetições inválido! Tente novamente.")
+                            except ValueError:
+                                print("[ERRO]: Digite um número!")
 
-                except ValueError:
-                    print("[ERRO]: Digite um número!")
+                    case 4:
+                        while True:
+                            try:
+                                print("--------------------------------------------")
+                                novo_peso = int(input("Digite o novo peso de exercicio: "))
+                                novo_peso_valido = validar_peso(novo_peso)
+                                if novo_peso_valido:
+                                    atualizar_exercicio(id_exercicio, novo_peso, "peso", "Peso")
+                                    break
+                                else:
+                                    print("Novo peso inválido! Tente novamente.")
+                            except ValueError:
+                                print("[ERRO]: Digite um número!")
+
+                    case 5:
+                        while True:
+                            menu = ["Segundo (s)", "Minuto (min)", "Hora (h)"]
+                            for i in range(len(menu)):
+                                print(f"{i + 1} - {menu[i]}")
+
+                            nova_unidade_medida = input("Digite a nova unidade de medida do tempo de descanço: ").lower()
+
+                            if nova_unidade_medida == "segundo" or nova_unidade_medida == "s":
+                                nova_unidade_medida = "s"
+                                break
+                            elif nova_unidade_medida == "minuto" or nova_unidade_medida == "min" or nova_unidade_medida == "m":
+                                nova_unidade_medida = "min"
+                                break
+                            elif nova_unidade_medida == "hora" or nova_unidade_medida == "h":
+                                nova_unidade_medida = "h"
+                                break
+                            else:
+                                print("Unidade de medida inválida! Tente novamente.")
+                        while True:
+                            try:
+                                novo_tempo_descanso = float(input("Digite o novo tempo de descanço do exercício: "))
+                                novo_tempo_descanso_valido = validar_tempo_descanso(novo_tempo_descanso)
+                                if novo_tempo_descanso_valido:
+                                    novo_tempo_descanso_validado = str(novo_tempo_descanso)
+                                    atualizar_exercicio(id_exercicio, novo_tempo_descanso_validado + nova_unidade_medida, "tempo_descanso", "Tempo de Descanço")
+                                    break
+                                else:
+                                    print("Tempo de descanço inválido! Tente novamente.")
+                            except ValueError:
+                                print("[ERRO]: Digite um número!")
+                        break
+
+                    case 6:
+                        print("Voltando...")
+                        break
+                    case _:
+                        print("Opção inválida! Tente novamente.")
+
+            except ValueError:
+                print("[ERRO]: Digite um número!")
 
 def excluir_exercicio(id_aluno: int):
     total_exercicio_aluno = listar_treino_exercicio(id_aluno)

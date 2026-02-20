@@ -2,7 +2,7 @@ from util.limpar_tela_util import limpar_tela
 from repository.instrutores_repository import listar_aluno_instrutor, atualizar_instrutor
 from repository.alunos_repository import listar_alunos
 from view.treinos_view.menu_treino import registrar_treino
-from view.treinos_view.painel_treino import editar_treino_aluno
+from view.treinos_view.painel_treino_aluno import editar_treino_aluno
 from util.confirmar_excluir_conta_util import confirmar_excluir_conta
 from model.alunos_model import identificar_aluno
 from view.alunos_view.menu_aluno_administrador import imprimir_alunos
@@ -10,16 +10,18 @@ from service.instrutores_service import validar_cpf, formatar_cpf
 from util.validacoes_util import validar_nome, validar_email, validar_senha
 from service.banco_de_dados_service import validar_unique
 from config.criptografia_config import criptografar
-from view.treinos_view.painel_treino import painel_treino
+from view.treinos_view.painel_treino_instrutor import painel_treino_instrutor
 from util.input_asterisco_util import input_asterisco
 from model.instrutores_model import selecionar_instrutor
+from view.exercicios_view.painel_exercicio import painel_exercicio
 
 def painel_instrutor(instrutor_autenticado: list):
     while True:
         limpar_tela()
 
         print("\n--------------------------------------------\n            Painel Instrutor\n--------------------------------------------")
-        menu = ["Treinos", "Visualizar Alunos", "Atualizar Cadastro", "Excluir Conta", "Voltar"]
+        # menu = ["Treinos", "Visualizar Alunos", "Atualizar Cadastro", "Excluir Conta", "Voltar"]
+        menu = ["Treinos", "Exercícios", "Visualizar Alunos", "Atualizar Cadastro", "Excluir Conta", "Voltar"]
         
         for i in range(len(menu)):
             print(f"{i + 1} - {menu[i]}")
@@ -29,11 +31,12 @@ def painel_instrutor(instrutor_autenticado: list):
             opcao = int(input("Digite uma opção: "))
             
             match opcao:
-                case 1: painel_treino(instrutor_autenticado)
-                case 2: visualizar_alunos(instrutor_autenticado)
-                case 3: editar_instrutor(instrutor_autenticado)
-                case 4: confirmar_excluir_conta(instrutor_autenticado, "Instrutor")
-                case 5:
+                case 1: painel_treino_instrutor(instrutor_autenticado[0])
+                case 2: painel_exercicio(instrutor_autenticado[0])
+                case 3: visualizar_alunos(instrutor_autenticado[0])
+                case 4: editar_instrutor(instrutor_autenticado[0])
+                case 5: confirmar_excluir_conta(instrutor_autenticado[0], "Instrutor")
+                case 6:
                     print("Voltando...")
                     break
                 case _:
@@ -42,7 +45,7 @@ def painel_instrutor(instrutor_autenticado: list):
         except ValueError:
             print("[ERRO]: Digite um número!")
 
-def criar_treino(instrutor_autenticado: int):
+def criar_treino(id_instrutor: int):
     quantidade_alunos = len(listar_alunos())
 
     if quantidade_alunos == 0:
@@ -55,31 +58,9 @@ def criar_treino(instrutor_autenticado: int):
             aluno_identificado = identificar_aluno(id_aluno, 0)
 
             if aluno_identificado:
-                registrar_treino(instrutor_autenticado, id_aluno)
+                registrar_treino(id_instrutor, id_aluno)
             else:
                 print("ID do aluno inválido! Tente novamente.")        
-        except ValueError:
-            print("[ERRO]: Digite um número!")
-
-def editar_treino_instrutor():
-    quantidade_alunos = len(listar_alunos())
-
-    if quantidade_alunos == 0:
-        print("Nenhum aluno cadastrado anteriormente.")
-    else:
-        alunos = listar_alunos()
-
-        for aluno in alunos:
-            print(f"{aluno[0]} - {aluno[1]}")
-
-        try:
-            id_aluno = int(input("Digite o ID do aluno para editar o treino: "))
-            aluno_identificado = identificar_aluno(id_aluno, 0)
-
-            if aluno_identificado:
-                editar_treino_aluno(id_aluno)
-            else:
-                print("ID do aluno inválido! Tente novamente.")
         except ValueError:
             print("[ERRO]: Digite um número!")
 

@@ -36,7 +36,7 @@ def selecionar_plano():
         imprimir_planos()
 
         try:
-            id_plano = int(input("Digite o ID do plano para atualizar: "))
+            id_plano = int(input("Digite o ID do plano: "))
 
             plano_identificado = identificar_plano(id_plano, 0)
             if plano_identificado:

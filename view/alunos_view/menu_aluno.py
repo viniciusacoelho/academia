@@ -133,6 +133,6 @@ def login_aluno():
 
         if aluno_autenticado:
             print(f"Login realizado com sucesso! Seja bem-vindo(a) {aluno_autenticado[1]}!")
-            painel_aluno(aluno_autenticado[0])
+            painel_aluno(aluno_autenticado)
         else:
             print("E-mail e/ou senha incorretos! Tente novamente.")

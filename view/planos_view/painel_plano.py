@@ -1,8 +1,9 @@
 from util.limpar_tela_util import limpar_tela
-from repository.planos_repository import listar_planos, visualizar_plano_aluno, assinar_plano_aluno, cancelar_plano_aluno
+from repository.planos_repository import listar_planos
+from repository.plano_aluno_repository import visualizar_plano_aluno, assinar_plano_aluno, cancelar_plano_aluno
 from util.pagamento_util import pagamento
 from view.planos_view.menu_plano import imprimir_planos, identificar_plano
-from service.planos_service import confirmar_cancelar_plano
+from model.planos_model import confirmar_cancelar_plano
 from repository.plano_aluno_repository import cancelar_plano_aluno
 
 def painel_plano(id_aluno: int):

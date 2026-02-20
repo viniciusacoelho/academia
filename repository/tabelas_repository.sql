@@ -122,6 +122,15 @@ JOIN instrutores i ON i.id_instrutor = t.id_instrutor
 JOIN alunos a ON a.id_aluno = t.id_aluno 
 WHERE t.id_treino = 2 ORDER BY e.id_exercicio;
 
+SELECT t.id_treino, t.nome, t.tipo, a.nome FROM treinos t 
+JOIN alunos a ON a.id_aluno = t.id_aluno 
+ORDER BY id_treino ASC;
+
+SELECT e.id_exercicio, e.nome, e.quantidade_series, e.numero_repeticoes, e.peso, e.tempo_descanso 
+FROM treino_exercicio te 
+JOIN exercicios e ON e.id_exercicio = te.id_exercicio 
+JOIN treinos t ON t.id_treino = te.id_treino 
+ORDER BY e.id_exercicio;
 --
 
 SELECT * FROM planos ORDER BY id_plano ASC;

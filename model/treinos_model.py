@@ -6,7 +6,7 @@ def selecionar_treino():
 
     try:
         print("--------------------------------------------")
-        id_treino = int(input("Digite o ID do treino para editar: "))
+        id_treino = int(input("Digite o ID do treino: "))
         treino_identificado = identificar_treino(id_treino, 0)
 
         if treino_identificado:

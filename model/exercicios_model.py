@@ -9,7 +9,7 @@ def selecionar_exercicio():
         imprimir_exercicios()
 
         try:
-            id_exercicio = int(input("Digite o ID do exercício para atualizar: "))
+            id_exercicio = int(input("Digite o ID do exercício: "))
 
             exercicio_identificado = identificar_exercicio(id_exercicio)
             if exercicio_identificado:
@@ -27,35 +27,22 @@ def selecionar_exercicio():
         except ValueError:
             return "[ERRO]: Digite um número!"
 
-def identificar_exercicio(id_exercicio: int):
+def identificar_exercicio(id_exercicio: int, posicao: int):
     exercicios = listar_exercicios()
     for exercicio in exercicios:
-        if id_exercicio == exercicio[0]:
+        if id_exercicio == exercicio[posicao]:
             return True
     return False
 
-def selecionar_exercicio(id_aluno):
-    # visulizar_treinos(id_aluno)
-    treinos_aluno = listar_treino_exercicio(id_aluno)
-
-    for treino_aluno in treinos_aluno:
-        print(f"Treino {treino_aluno[0]}\nTipo: {treino_aluno[1]}\nExercícios: {treino_aluno[2]}\nID do Aluno: {treino_aluno[3]}\nID do Instrutor: {treino_aluno[4]}")
-
+def selecionar_exercicio():
     try:
-        id_treino = int(input("Digite o ID do treino para editar o exercício: "))
-        treino_identificado = identificar_treino(id_treino, 0)
+        id_exercicio = int(input("Digite o ID do exercício: "))
+        exercicio_identificado = identificar_exercicio(id_exercicio, 0)
 
-        if treino_identificado:
-            id_exercicio = int(input("Digite o ID do exercício para deletar: "))
-            exercicio_identificado = identificar_treino(id_treino, 0)
-
-            if exercicio_identificado:
-                return id_exercicio
-            else:
-                return "ID do exercício não cadastrado anteriormente. Tente novamente."
+        if exercicio_identificado:
+            return id_exercicio
         else:
-            print("ID do treino inválido! Tente novamente.")
-
+            return "ID do exercício não cadastrado anteriormente. Tente novamente."
     except ValueError:
         print("[ERRO]: Digite um número!")
 

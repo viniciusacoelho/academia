@@ -103,7 +103,7 @@ def listar_aluno_instrutor(id_instrutor: int) -> list | None:
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT a.nome FROM treinos t JOIN alunos a ON a.id_aluno = t.id_aluno ORDER BY a.id_aluno WHERE id_instrutor = %s;", [id_instrutor])
+        cursor.execute("SELECT a.id_aluno, a.nome FROM treinos t JOIN alunos a ON a.id_aluno = t.id_aluno WHERE id_instrutor = %s ORDER BY a.id_aluno;", [id_instrutor])
         conexao.commit()
         return cursor.fetchall()
     except Exception as e:

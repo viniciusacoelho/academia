@@ -31,7 +31,7 @@ def selecionar_instrutor():
         imprimir_instrutores()
 
         try:
-            id_instrutor = int(input("Digite o ID do instrutor para atualizar: "))
+            id_instrutor = int(input("Digite o ID do instrutor: "))
             instrutor_identificado = identificar_instrutor(id_instrutor, 0)
 
             if instrutor_identificado:
