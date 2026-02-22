@@ -23,7 +23,7 @@ def menu_treino():
                 case 1: registrar_treino()
                 case 2:
                     imprimir_treinos()
-                    if len(listar_treinos) != 0:
+                    if len(listar_treinos()) != 0:
                         print("Treinos listados com sucesso!")
                 case 3: procurar_treino()
                 case 4: editar_treino()
@@ -77,30 +77,7 @@ def registrar_treino(id_instrutor: int):
         except ValueError:
             print("[ERRO]: Digite um número!")
 
-    cadastrar_treino(nome, tipo, id_aluno, id_instrutor)
-
-    # while True:
-    #     try:
-    #         quantidade_exercicios = int(input("Digite a quantidade de exercícios: "))
-    #         quantidade_exercicios_validada = validar_quantidade_exercicios(quantidade_exercicios)
-
-    #         if quantidade_exercicios_validada:
-    #             break
-    #         else:
-    #             print("Quantidadde de exercícios inválida! Tente novamente.")
-    #     except ValueError:
-    #         print("[ERRO]: Digite um número!")
-
-    # for i in range(quantidade_exercicios):
-    #     nome_exercicio = input(f"Digite o nome do exercício {i + 1}: ")
-    #     peso = int(input(f"Digite o peso do exercício {i + 1}: "))
-    #     repeticoes = int(input(f"Digite o número de repetições do exercício {i + 1}: "))
-    #     series = int(input(f"Digite a quantidade de séries do exercício {i + 1}: "))
-    #     # TODO: Colocar time no tempo de descanço
-    #     # tempo_descanso = float(input(f"Digite o tempo de descanso do exercício {i + 1}: "))
-    #     tempo_descanso = input(f"Digite o tempo de descanso do exercício {i + 1}: ")
-
-        # cadastrar_treino(tipo, nome_exercicio, peso, repeticoes, series, tempo_descanso, id_aluno, id_instrutor)
+    cadastrar_treino(nome, tipo, id_instrutor, id_aluno)
 
 def imprimir_treinos():
     total_treinos = len(listar_treinos())
@@ -143,7 +120,7 @@ def editar_treino():
 
         while True:
             limpar_tela()
-        
+
             print("\n--------------------------------------------\n           Atualizar Treino\n--------------------------------------------")
             menu = ["Nome do Treino", "Tipo do Treino", "Voltar"]
 
@@ -161,6 +138,7 @@ def editar_treino():
                         break
                     case 2:
                         menu = ["Empurrar", "Puxar", "Inferior"]
+
                         for i in range(len(menu)):
                             print(f"{i + 1} - {menu[i]}")
 
@@ -171,13 +149,10 @@ def editar_treino():
                             match id_tipo_treino:
                                 case 1:
                                     atualizar_treino(id_treino, "Empurrar", "nome", "Nome")
-                                    break
                                 case 2:
                                     atualizar_treino(id_treino, "Puxar", "nome", "Nome")
-                                    break
                                 case 3:
                                     atualizar_treino(id_treino, "Inferior", "nome", "Nome")
-                                    break
                                 case _:
                                     print("ID do tipo de treino inválido! Tente novamente.")
 

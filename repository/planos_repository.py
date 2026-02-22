@@ -6,7 +6,7 @@ def cadastrar_plano(nome: str, descricao: str, tipo: str, preco: float):
         cursor = conexao.cursor()
         cursor.execute("INSERT INTO planos (nome, descricao, tipo, preco) VALUES (%s, %s, %s, %s);", [nome, descricao, tipo, preco])    
         conexao.commit()
-        print(f"Plano '{nome}' adastrado com sucesso!")
+        print(f"Plano '{nome}' cadastrado com sucesso!")
     except Exception as e:
         print(f"[ERRO]: Falha ao cadastrar plano: {e}")
     finally:
@@ -46,7 +46,7 @@ def deletar_plano(id_plano: int):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute(f"DELETE FROM planos WHERE id_plano = %s;", [id_plano])    
+        cursor.execute("DELETE FROM planos WHERE id_plano = %s;", [id_plano])    
         nome_plano = listar_nome_plano(id_plano)
 
         for nome in nome_plano:

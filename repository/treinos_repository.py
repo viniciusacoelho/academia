@@ -47,7 +47,7 @@ def deletar_treino(id_treino: int):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute(f"DELETE FROM treinos WHERE id = %s;", [id_treino])
+        cursor.execute("DELETE FROM treinos WHERE id_treino = %s;", [id_treino])
         nome_treino = listar_nome_treino(id_treino, "id_treino")
 
         for nome in nome_treino:

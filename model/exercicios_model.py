@@ -3,29 +3,19 @@ from repository.treino_exercicio_repository import listar_treino_exercicio, dele
 from model.treinos_model import identificar_treino
 
 def selecionar_exercicio():
-    from view.exercicios_view.menu_exercicio import imprimir_exercicios
-
     while True:
-        imprimir_exercicios()
-
         try:
             id_exercicio = int(input("Digite o ID do exercício: "))
+            exercicio_identificado = identificar_exercicio(id_exercicio, 0)
 
-            exercicio_identificado = identificar_exercicio(id_exercicio)
             if exercicio_identificado:
                 return id_exercicio
             else:
-                return "ID do exercício não cadastrado anteriormente. Tente novamente."
-
-            # exercicios = listar_exercicios()
-            # for exercicio in exercicios:
-            #     if id_exercicio == exercicio[0]:
-            #         return id_exercicio
-            # else:
-            #     print("ID do exercício não cadastrado anteriormente. Tente novamente.")
-
+                print("ID do exercício não cadastrado anteriormente. Tente novamente.")
+                print("--------------------------------------------")
         except ValueError:
-            return "[ERRO]: Digite um número!"
+            print("[ERRO]: Digite um número!")
+            print("--------------------------------------------")
 
 def identificar_exercicio(id_exercicio: int, posicao: int):
     exercicios = listar_exercicios()
@@ -34,26 +24,13 @@ def identificar_exercicio(id_exercicio: int, posicao: int):
             return True
     return False
 
-def selecionar_exercicio():
-    try:
-        id_exercicio = int(input("Digite o ID do exercício: "))
-        exercicio_identificado = identificar_exercicio(id_exercicio, 0)
-
-        if exercicio_identificado:
-            return id_exercicio
-        else:
-            return "ID do exercício não cadastrado anteriormente. Tente novamente."
-    except ValueError:
-        print("[ERRO]: Digite um número!")
-
-def confirmar_remover_exercicio(id_exercicio: int, id_aluno: int):
+def confirmar_deletar_exercicio(id_exercicio: int):
     while True:
-        resposta = input("Tem certeza que deseja remover o exercicio? (s/n): ").lower()
+        resposta = input("Tem certeza que deseja excluir o exercício? (s/n): ").lower()
 
         if resposta == "s" or resposta == "sim":
-            deletar_treino_exercicio(id_exercicio, id_aluno)
-            break
+            return id_exercicio
         elif resposta == "n" or resposta == "nao" or resposta == "não":
-            break
+            return False
         else:
             print("Resposta inválida! Tente novamente.")

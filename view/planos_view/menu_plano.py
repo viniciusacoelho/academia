@@ -2,15 +2,15 @@ from util.limpar_tela_util import limpar_tela
 from repository.planos_repository import cadastrar_plano, listar_planos, buscar_plano, atualizar_plano, deletar_plano
 from service.planos_service import validar_descricao, validar_preco
 from util.validacoes_util import validar_nome
-from model.planos_model import identificar_plano, decidir_excluir_plano, selecionar_plano
+from model.planos_model import identificar_plano, confirmar_cancelar_plano, selecionar_plano
 
 def menu_plano():
     while True:    
         limpar_tela()
 
         print("--------------------------------------------\n        Menu Plano\n--------------------------------------------")
-
         menu = ["Cadastrar Plano", "Listar Planos", "Buscar Plano", "Atualizar Plano", "Deletar Plano", "Voltar"]
+
         for i in range(len(menu)):
             print(f"{i + 1} - {menu[i]}")
 
@@ -32,6 +32,7 @@ def menu_plano():
                     break
                 case _:
                     print("Opção inválida! Tente novamente.")
+
         except ValueError:
             print("[ERRO]: Digite um número!")
 
@@ -238,8 +239,12 @@ def excluir_plano():
                 plano_identificado = identificar_plano(id_plano, 0)
 
                 if plano_identificado:
-                    decidir_excluir_plano(id_plano)
+                    plano_deletado = confirmar_cancelar_plano(id_plano)
+
+                    if plano_deletado:
+                        deletar_plano(id_plano)
                     break
+
                 else:
                     print("ID do plano não cadastrado anteriormente. Tente novamente.")
 

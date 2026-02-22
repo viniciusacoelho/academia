@@ -20,7 +20,6 @@ def painel_instrutor(instrutor_autenticado: list):
         limpar_tela()
 
         print("\n--------------------------------------------\n            Painel Instrutor\n--------------------------------------------")
-        # menu = ["Treinos", "Visualizar Alunos", "Atualizar Cadastro", "Excluir Conta", "Voltar"]
         menu = ["Treinos", "Exercícios", "Visualizar Alunos", "Atualizar Cadastro", "Excluir Conta", "Voltar"]
         
         for i in range(len(menu)):
@@ -32,10 +31,10 @@ def painel_instrutor(instrutor_autenticado: list):
             
             match opcao:
                 case 1: painel_treino_instrutor(instrutor_autenticado[0])
-                case 2: painel_exercicio(instrutor_autenticado[0])
+                case 2: painel_exercicio(instrutor_autenticado[0], "instrutores")
                 case 3: visualizar_alunos(instrutor_autenticado[0])
                 case 4: editar_instrutor(instrutor_autenticado[0])
-                case 5: confirmar_excluir_conta(instrutor_autenticado[0], "Instrutor")
+                case 5: confirmar_excluir_conta(instrutor_autenticado[0], "instrutores")
                 case 6:
                     print("Voltando...")
                     break

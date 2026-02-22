@@ -90,3 +90,15 @@ def listar_nome_exercicio(id_exercicio: int, atributo: str) -> list | None:
     finally:
         cursor.close()
         conexao.close()
+
+def listar_exercicio_(id_exercicio: int, atributo: str) -> list | None:
+    try:
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+        cursor.execute(f"SELECT nome FROM exercicios WHERE {atributo} = %s;", [id_exercicio])
+        return cursor.fetchall()
+    except Exception as e:
+        print(f"[ERRO]: Falha ao listar nome do exercicio: {e}")
+    finally:
+        cursor.close()
+        conexao.close()

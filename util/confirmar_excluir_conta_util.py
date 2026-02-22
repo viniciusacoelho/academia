@@ -5,9 +5,9 @@ def confirmar_excluir_conta(id: int, entidade: str):
     while True:
         resposta = input("Tem certeza que deseja excluir sua conta? (s/n): ").lower()
         if resposta == "s" or resposta == "sim":
-            if entidade == "Aluno":
+            if entidade == "alunos":
                 deletar_aluno(id)
-            elif entidade == "Instrutor":
+            elif entidade == "instrutores":
                 deletar_instrutor(id)
             break
         elif resposta == "n" or resposta == "não" or resposta == "nao":

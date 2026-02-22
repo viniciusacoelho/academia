@@ -131,6 +131,17 @@ FROM treino_exercicio te
 JOIN exercicios e ON e.id_exercicio = te.id_exercicio 
 JOIN treinos t ON t.id_treino = te.id_treino 
 ORDER BY e.id_exercicio;
+
+SELECT te.* FROM treino_exercicio te 
+JOIN treinos t ON t.id_treino = te.id_treino 
+-- JOIN alunos a ON a.id_aluno = t.id_treino WHERE a.id_aluno = 1 
+JOIN instrutores i ON i.id_instrutor = t.id_treino WHERE i.id_instrutor = 2 
+ORDER BY id_treino ASC;
+
+SELECT te.* FROM treino_exercicio te 
+JOIN treinos t ON t.id_treino = te.id_treino 
+JOIN alunos a ON a.id_aluno = t.id_treino 
+ORDER BY id_treino ASC;
 --
 
 SELECT * FROM planos ORDER BY id_plano ASC;

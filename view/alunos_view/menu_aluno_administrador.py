@@ -21,7 +21,7 @@ def menu_aluno_administrador():
                 case 1: criar_conta_aluno()
                 case 2: 
                     imprimir_alunos()
-                    if len(listar_alunos) != 0:
+                    if len(listar_alunos()) != 0:
                         print("Alunos listados com sucesso!")
                 case 3: procurar_aluno()
                 case 4: selecionar_aluno()

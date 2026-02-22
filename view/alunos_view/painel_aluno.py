@@ -9,14 +9,15 @@ from util.confirmar_excluir_conta_util import confirmar_excluir_conta
 from model.alunos_model import selecionar_aluno
 from view.planos_view.painel_plano import painel_plano
 from view.treinos_view.painel_treino_aluno import painel_treino_aluno
+from view.exercicios_view.painel_exercicio import painel_exercicio
 
 def painel_aluno(aluno_autenticado: int):
     while True:
         limpar_tela()
 
         print("\n--------------------------------------------\n            Painel Aluno\n--------------------------------------------")
+        menu = ["Planos", "Treinos", "Exercícios", "Atualizar Cadastro", "Excluir Conta", "Voltar"]
 
-        menu = ["Planos", "Treinos", "Atualizar Cadastro", "Excluir Conta", "Voltar"]
         for i in range(len(menu)):
             print(f"{i + 1} - {menu[i]}")
 
@@ -27,9 +28,10 @@ def painel_aluno(aluno_autenticado: int):
             match opcao:
                 case 1: painel_plano(aluno_autenticado[0])
                 case 2: painel_treino_aluno(aluno_autenticado[0])
-                case 3: editar_aluno(aluno_autenticado[0])
-                case 4: confirmar_excluir_conta(aluno_autenticado[0], "Aluno")
-                case 5:
+                case 3: painel_exercicio(aluno_autenticado[0], "alunos")
+                case 4: editar_aluno(aluno_autenticado[0])
+                case 5: confirmar_excluir_conta(aluno_autenticado[0], "alunos")
+                case 6:
                     print("Voltando...")
                     break
                 case _:

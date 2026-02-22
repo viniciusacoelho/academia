@@ -16,7 +16,7 @@ def selecionar_instrutor():
             if instrutor_identificado:
                 return id_instrutor
             else:
-                return "ID do aluno inválido! Tente novamente."
+                return "ID do instrutor inválido! Tente novamente."
 
         except ValueError:
             return "[ERRO]: Digite um número!"
@@ -37,7 +37,7 @@ def selecionar_instrutor():
             if instrutor_identificado:
                 return id_instrutor
             else:
-                return "ID do aluno inválido! Tente novamente."
+                return "ID do instrutor inválido! Tente novamente."
 
         except ValueError:
             return "[ERRO]: Digite um número!"

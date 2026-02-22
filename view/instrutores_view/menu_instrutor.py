@@ -106,6 +106,7 @@ def login_instrutor():
         instrutor_autenticado = autenticar_instrutor(email, senha)
 
         if instrutor_autenticado:
+            print(f"Login realizado com sucesso! Seja bem-vindo(a) {instrutor_autenticado[1]}!")
             painel_instrutor(instrutor_autenticado)
         else:
             print("E-mail e/ou senha incorretos! Tente novamente.")

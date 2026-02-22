@@ -26,11 +26,11 @@ def listar_treino_exercicio(id_treino: int) -> list | None:
         cursor.close()
         conexao.close()
 
-def deletar_treino_exercicio(id_treino: int, id_exercicio: int):
+def deletar_treino_exercicio(id_exercicio: int):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("DELETE FROM treino_exercicio WHERE id_treino = %s AND id_exercicio = %s;", [id_treino, id_exercicio])
+        cursor.execute("DELETE FROM treino_exercicio WHERE id_exercicio = %s;", [id_exercicio])
         conexao.commit()
         nome_exercicio = listar_nome_exercicio(id_exercicio, "id_exercicio")
 
@@ -54,3 +54,29 @@ def listar_treino_exercicio_join(id_treino: int) -> list | None:
     finally:
         cursor.close()
         conexao.close()
+
+# TODO: ->
+def listar_treino_exercicio_instrutor(id_instrutor: int) -> list | None:
+    try:
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+        cursor.execute("SELECT te.* FROM treino_exercicio te JOIN treinos t ON t.id_treino = te.id_treino JOIN instrutores i ON i.id_instrutor = t.id_treino WHERE i.id_instrutor = %s ORDER BY id_treino ASC;", [id_instrutor])
+        return cursor.fetchall()
+    except Exception as e:
+        print(f"[ERRO]: Falha ao listar exercícios do instrutor: {e}")
+    finally:
+        cursor.close()
+        conexao.close()
+
+def listar_treino_exercicio_aluno(id_aluno: int) -> list | None:
+    try:
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+        cursor.execute("SELECT te.* FROM treino_exercicio te JOIN treinos t ON t.id_treino = te.id_treino JOIN alunos a ON a.id_aluno = t.id_treino WHERE a.id_aluno = %s ORDER BY id_treino ASC;", [id_aluno])
+        return cursor.fetchall()
+    except Exception as e:
+        print(f"[ERRO]: Falha ao listar exercícios do aluno: {e}")
+    finally:
+        cursor.close()
+        conexao.close()
+
