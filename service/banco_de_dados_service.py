@@ -14,6 +14,7 @@ def validar_unique(parametro_atributo: str, entidade: str, posicao: int):
         itens = listar_instrutores()
 
     lista_intens = []
+
     for item in itens:
         lista_intens.append(item[posicao])
 

@@ -23,9 +23,10 @@ while True:
             case 3: menu_instrutor()
             case 4:
                 print("Saindo...")
-                print("--------------------------------------------\n               Desenvolvedor\n--------------------------------------------")
-                print("LinkedIn: viniciusacoelho")
-                print("GitHub: viniciusacoelho")
+                limpar_tela()
+                print("--------------------------------------------\n                Desenvolvedor\n--------------------------------------------")
+                print("LinkedIn: https://www.linkedin.com/in/viniciusacoelho/")
+                print("GitHub: https://github.com/viniciusacoelho")
                 print("--------------------------------------------")
                 break
             case _:
