@@ -5,7 +5,8 @@ def validar_altura(altura: float) -> bool:
 
 def validar_peso(peso: float) -> bool:
     # return match(r"^\d{1}.{1}\d{,2}$", peso)
-    return len(peso) >= 2
+    # return len(peso) >= 2
+    return peso >= 10
 
 def validar_data_nascimento(data_nascimento: float) -> bool:
     return len(data_nascimento) == 8

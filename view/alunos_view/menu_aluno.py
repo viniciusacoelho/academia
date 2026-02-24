@@ -51,16 +51,14 @@ def criar_conta_aluno():
         email_valido = validar_email(email)
 
         if email_valido:
-            continue
+            email_unico = validar_unique(email, "alunos", 2)
+
+            if email_unico:
+                break
+            else:
+                print("E-mail já cadastrado anteriormente. Tente novamente.")
         else:
             print("E-mail inválido! Tente novamente.")
-
-        email_unico = validar_unique(email, "alunos", 2)
-
-        if email_unico:
-            break
-        else:
-            print("E-mail já cadastrado anteriormente. Tente novamente.")
 
     while True:
         try:
@@ -104,12 +102,13 @@ def criar_conta_aluno():
 
     while True:
         senha = input_asterisco("Digite sua senha: ")
-        senha_valida = validar_senha(senha)
+        break
+        # senha_valida = validar_senha(senha)
     
-        if senha_valida:
-            break
-        else:
-            print("Senha inválida! Tente novamente.")
+        # if senha_valida:
+        #     break
+        # else:
+        #     print("Senha inválida! Tente novamente.")
     
     while True:
         confirmar_senha = input_asterisco("Confirme sua senha: ")

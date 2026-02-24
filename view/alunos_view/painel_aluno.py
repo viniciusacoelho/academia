@@ -40,13 +40,13 @@ def painel_aluno(aluno_autenticado: int):
         except ValueError:
             print("[ERRO]: Digite um número!")
 
-def editar_aluno():
+def editar_aluno(id_aluno: int):
     total_alunos = len(listar_alunos())
 
     if total_alunos == 0:
-        print("Nenhum plano cadastrado anteriormente.")
+        print("Nenhum aluno cadastrado anteriormente.")
     else:
-        id_aluno = selecionar_aluno(id_aluno)
+        # id_aluno = selecionar_aluno()
         while True:
             limpar_tela()
 

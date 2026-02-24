@@ -1,13 +1,12 @@
 from repository.alunos_repository import listar_alunos
 from repository.instrutores_repository import listar_instrutores
-
 from repository.planos_repository import listar_planos
 from repository.alunos_repository import listar_alunos
 from repository.treinos_repository import listar_treinos
 from repository.instrutores_repository import listar_instrutores
 from repository.exercicios_repository import listar_exercicios
 
-def validar_unique(parametro_atributo: str, entidade: str, posicao: int):
+def validar_unique(parametro_atributo: str, entidade: str, posicao: int) -> bool:
     if entidade == "alunos":
         itens = listar_alunos()
     elif entidade == "instrutores":
@@ -18,7 +17,7 @@ def validar_unique(parametro_atributo: str, entidade: str, posicao: int):
     for item in itens:
         lista_intens.append(item[posicao])
 
-    return parametro_atributo in lista_intens
+    return parametro_atributo not in lista_intens
 
 # TODO: Verificar se é possível fazer isso
 def validar_entidade_cadastrada(entidade: str, nome_entidade: str) -> bool:
